@@ -22,11 +22,14 @@ require 'html-proofer'
 # cf. GitHub - gjtorikian/html-proofer
 # https://github.com/gjtorikian/html-proofer
 
+# Load custom checks
+Dir['_tests/*.rb'].each { |file| require_relative file }
+
 task test: [:build] do
   options = {
     allow_hash_href:  true,
     disable_external: true,
-    checks: ['Links', 'Images', 'OpenGraph', 'Favicon'],
+    checks: ['Links', 'Images', 'OpenGraph', 'Favicon', 'JsonLdCheck'],
 
     # NOTE: You can ignore file, URL, and response as follows
     ignore_files: [
