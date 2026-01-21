@@ -21,9 +21,16 @@ class JsonLdCheck < HTMLProofer::Check
       return add_failure("Invalid JSON-LD: #{e.message}")
     end
 
-    # Only check Organization type (skip if not Organization)
-    return unless data['@type'] == 'Organization'
+    # Check based on type
+    case data['@type']
+    when 'Organization'
+      check_organization(data)
+    when 'WebSite'
+      check_website(data)
+    end
+  end
 
+  def check_organization(data)
     # Check required properties
     check_required_property(data, '@context', 'https://schema.org')
     check_required_property(data, '@type', 'Organization')
@@ -33,6 +40,21 @@ class JsonLdCheck < HTMLProofer::Check
 
     # Check address structure
     check_address_structure(data)
+  end
+
+  def check_website(data)
+    # Check required properties
+    check_required_property(data, '@context', 'https://schema.org')
+    check_required_property(data, '@type', 'WebSite')
+    check_required_property(data, 'name')
+    check_required_property(data, 'url')
+    check_required_property(data, 'description')
+    check_required_property(data, 'inLanguage')
+
+    # Check inLanguage is an array
+    unless data['inLanguage'].is_a?(Array)
+      add_failure("Property 'inLanguage' should be an array")
+    end
   end
 
   def check_required_property(data, property, expected_value = nil)

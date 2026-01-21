@@ -1,0 +1,8 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title }}",
+  "url": "{{ site.url }}/",
+  "description": "{{ site.data.translations.titleDescription[page.lang] }}",
+  "inLanguage": ["en", "ja"]
+}
