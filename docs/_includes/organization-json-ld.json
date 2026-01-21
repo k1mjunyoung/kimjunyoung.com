@@ -1,0 +1,11 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ page.title }}",
+  "url": "{{ page.link }}",
+  "description": {{ page.description | jsonify }},
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "JP"
+  }
+}

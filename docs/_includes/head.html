@@ -62,4 +62,11 @@
     <meta name="twitter:card"        content="summary">
     <meta name="twitter:image"       content="{{ site.url }}/assets/img/twitter_card.png">
     <meta itemprop="image"           content="{{ site.url }}/assets/img/twitter_card.png">
+
+    <!-- Schema.org JSON-LD for Organization pages -->
+    {% if page.layout == 'post' and page.domain %}
+    <script type="application/ld+json">
+      {% include organization-json-ld.json %}
+    </script>
+    {% endif %}
   </head>
