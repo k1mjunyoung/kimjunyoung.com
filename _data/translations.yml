@@ -6,11 +6,11 @@ menuSwitcherLabel:
   ja: 'English'
 
 linkToGitHub:
-  en: 'https://github.com/remote-jp/remote-in-japan/blob/main/README.en.md'
-  ja: 'https://github.com/remote-jp/remote-in-japan/blob/main/README.md'
+  en: 'https://github.com/k1mjunyoung/kimjunyoung.com'
+  ja: 'https://github.com/k1mjunyoung/kimjunyoung.com'
 viewOnGitHub:
-  en: '<a href="https://github.com/remote-jp/remote-in-japan/blob/main/README.en.md">GitHub</a>'
-  ja: '<a href="https://github.com/remote-jp/remote-in-japan/blob/main/README.md">GitHub</a>'
+  en: 'https://github.com/k1mjunyoung/kimjunyoung.com'
+  ja: 'https://github.com/k1mjunyoung/kimjunyoung.com'
 
 titleDescription:
   en: 'Tech companies in Japan that hire remote workers.'

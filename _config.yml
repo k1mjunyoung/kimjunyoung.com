@@ -1,8 +1,8 @@
 # Site settings
-title: 'Remotework.jp'
-description: 'Tech companies in Japan that hire remote workers.'
+title: 'kimjunyoung.com'
+description: '김준영, 백엔드 개발자. Kim Junyoung, backend engineer in Korea.'
 baseurl: '/'
-url: 'https://remotework.jp'
+url: 'https://kimjunyoung.com'
 
 # Build settings
 markdown: kramdown
