@@ -5,21 +5,20 @@
     </div>
      <ul class="languages container align-items-baseline" data-aos="fade-left" data-aos-delay="" data-aos-offset="0">
        <li style='margin-right: 20px;'>
-		<small>
-		<a href='{{ site.data.translations.linkToGitHub[lang] }}'>
-			<i class="fa-brands fa-github" style='margin-right: 3px;'></i>
-			GitHub
-		</a>
-		</small>
-       </li>
-       <li style='margin-right: 5px;'>
-		<small>{% if lang == 'kr' %}<strong>한국어</strong>{% else %}<a href="/kr">한국어</a>{% endif %}</small>
-       </li>
-       <li style='margin-right: 5px;'>
-	 	<small>{% if lang == 'ja' %}<strong>日本語</strong>{% else %}<a href="/ja">日本語</a>{% endif %}</small>
+	<small>
+	<a href='{{ site.data.translations.linkToGitHub[lang] }}'>
+		<i class="fa-brands fa-github" style='margin-right: 3px;'></i>
+		GitHub
+	</a>
+	</small>
        </li>
        <li>
-	 	<small>{% if lang == 'en' %}<strong>EN</strong>{% else %}<a href="/en">EN</a>{% endif %}</small>
+	 <small>
+	   <a href="/{{ site.data.translations.menuSwitcher[lang] }}">
+	     <i class='fa-regular fa-language' style='margin-right: 3px;'></i>
+	     {{ site.data.translations.menuSwitcherLabel[lang] }}
+	   </a>
+	 </small>
        </li>
     </ul>
   </div>

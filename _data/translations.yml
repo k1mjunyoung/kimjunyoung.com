@@ -1,9 +1,11 @@
 menuSwitcher:
-  en: 'ja'
+  kr: 'ja'
   ja: 'en'
+  en: 'kr'
 menuSwitcherLabel:
-  en: '日本語'
+  kr: '日本語'
   ja: 'English'
+  en: '한국어'
 
 linkToGitHub:
   en: 'https://github.com/k1mjunyoung/kimjunyoung.com'
