@@ -34,12 +34,12 @@ layout: default
     window.location.replace("{{ page.redirect.to }}" + window.location.hash + window.location.search);
   }
   else if (getBrowserLanguage().indexOf("ko") != -1) {
-    window.location.replace("/kr");
+    window.location.replace("/ko");
   }
   else if (getBrowserLanguage().indexOf("ja") != -1) {
     window.location.replace("/ja");
   }
   else {
-    window.location.replace("/kr");
+    window.location.replace("/ko");
   }
 </script>

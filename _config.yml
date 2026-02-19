@@ -1,8 +1,9 @@
 # Site settings
-title: 'kimjunyoung.com'
+title: 'kimjunyoung'
 description: '김준영, 백엔드 개발자. Kim Junyoung, backend engineer in Korea.'
 baseurl: '/'
 url: 'https://kimjunyoung.com'
+domain: 'kimjunyoung.com'
 
 # Build settings
 markdown: kramdown

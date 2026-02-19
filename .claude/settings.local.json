@@ -3,7 +3,8 @@
     "allow": [
       "Bash(xargs -I {} bash -c \"echo ''=== {} ==='' && head -30 {}\")",
       "Bash(head:*)",
-      "Bash(xargs cat:*)"
+      "Bash(xargs cat:*)",
+      "Bash(git mv:*)"
     ]
   }
 }
