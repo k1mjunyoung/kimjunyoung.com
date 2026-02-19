@@ -12,13 +12,14 @@
 	   </a>
 	 </small>
        </li>
+       <li style='margin-right: 5px;'>
+	 <small>{% if lang == 'en' %}<strong>EN</strong>{% else %}<a href="/en">EN</a>{% endif %}</small>
+       </li>
+       <li style='margin-right: 5px;'>
+	 <small>{% if lang == 'ja' %}<strong>日本語</strong>{% else %}<a href="/ja">日本語</a>{% endif %}</small>
+       </li>
        <li>
-	 <small>
-	   <a href="/{{ site.data.translations.menuSwitcher[lang] }}">
-	     <i class='fa-regular fa-language' style='margin-right: 3px;'></i>
-	     {{ site.data.translations.menuSwitcherLabel[lang] }}
-	   </a>
-	 </small>
+	 <small>{% if lang == 'kr' %}<strong>한국어</strong>{% else %}<a href="/kr">한국어</a>{% endif %}</small>
        </li>
     </ul>
   </div>

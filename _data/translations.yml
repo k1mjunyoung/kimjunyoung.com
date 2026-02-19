@@ -8,48 +8,61 @@ menuSwitcherLabel:
 linkToGitHub:
   en: 'https://github.com/k1mjunyoung/kimjunyoung.com'
   ja: 'https://github.com/k1mjunyoung/kimjunyoung.com'
+  kr: 'https://github.com/k1mjunyoung/kimjunyoung.com'
 viewOnGitHub:
   en: 'https://github.com/k1mjunyoung/kimjunyoung.com'
   ja: 'https://github.com/k1mjunyoung/kimjunyoung.com'
+  kr: 'https://github.com/k1mjunyoung/kimjunyoung.com'
 
 titleDescription:
   en: 'Tech companies in Japan that hire remote workers.'
   ja: 'リモートワークを採用している日本のテクノロジー企業のまとめ。'
+  kr: '김준영의 블로그.'
 
 searchPlaceholder:
   en: 'e.g. '
   ja: '検索例: '
+  kr: '검색: '
 searchNoResults:
   en: "&nbsp;&nbsp; No search results."
   ja: "&nbsp;&nbsp; 検索結果が見つかりませんでした。"
+  kr: "&nbsp;&nbsp; 검색 결과가 없습니다."
 searchLoading:
   en: 'searching ...'
   ja: '検索中...'
+  kr: '검색 중...'
 
 postTagFullRemote:
   en: 'Fully remote 👌'
   ja: 'フルリモート 👌'
+  kr: '풀 리모트 👌'
 
 postTagJaRequired:
   en: 'Japanese required'
   ja: '日本語が必要'
+  kr: '일본어 필요'
 
 postUpdatedBy:
   en: 'Updated'
   ja: '更新日'
+  kr: '업데이트'
 
 link:
   en: 'Link'
   ja: 'リンク'
+  kr: '링크'
 
 share:
   en: 'Share'
   ja: 'シェア'
+  kr: '공유'
 
 back:
   en: 'Back to index'
   ja: '目次に戻る'
+  kr: '목록으로 돌아가기'
 
 poweredBy:
   en: '<a href="https://www.ruby-lang.org/en/">Ruby</a>'
   ja: '<a href="https://www.ruby-lang.org/ja/">Ruby</a>'
+  kr: '<a href="https://www.ruby-lang.org/en/">Ruby</a>'

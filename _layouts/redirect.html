@@ -33,6 +33,9 @@ layout: default
   if ("{{ page.redirect.to }}" != ""){
     window.location.replace("{{ page.redirect.to }}" + window.location.hash + window.location.search);
   }
+  else if (getBrowserLanguage().indexOf("ko") != -1) {
+    window.location.replace("/kr");
+  }
   else if (getBrowserLanguage().indexOf("ja") != -1) {
     window.location.replace("/ja");
   }
