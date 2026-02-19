@@ -173,3 +173,10 @@ ul {
   min-height: calc(100vh - 80px - 200px);
   padding-top: 20px;
 }
+
+pre[class*="language-"],
+code[class*="language-"] {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
