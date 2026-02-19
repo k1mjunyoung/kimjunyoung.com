@@ -82,11 +82,11 @@ html {
 
 html {
   font-family: 'Pretendard', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 300;
+  font-size: 16px;
+  //font-weight: 300;
   line-height: 1.6;
   @media (min-width: 38em) {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -116,7 +116,7 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-weight: 600;
+  //font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.025rem;
   @media (prefers-color-scheme: dark) {
