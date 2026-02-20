@@ -56,6 +56,7 @@ DESCRIPTION_COL = detect_column(columns, 'description', 'summary',     'excerpt'
 SLUG_COL        = detect_column(columns, 'slug',        'url_key',     'path')
 DATE_COL        = detect_column(columns, 'createdAt',   'created_at',  'publishedAt', 'date')
 CATEGORY_COL    = detect_column(columns, 'category',    'categories',  'tag',         'tags')
+DELETED_AT_COL  = detect_column(columns, 'deleted_at',  'deletedAt')
 
 puts "컬럼 매핑 결과:"
 puts "  title       → #{TITLE_COL       || '(없음)'}"
@@ -64,6 +65,7 @@ puts "  description → #{DESCRIPTION_COL || '(없음)'}"
 puts "  slug        → #{SLUG_COL        || '(없음)'}"
 puts "  date        → #{DATE_COL        || '(없음)'}"
 puts "  categories  → #{CATEGORY_COL    || '(없음)'}"
+puts "  deleted_at  → #{DELETED_AT_COL  || '(없음 — published 항상 true)'}"
 puts
 
 unless TITLE_COL && CONTENT_COL && DATE_COL
@@ -75,7 +77,6 @@ end
 sample_res = conn.exec(<<~SQL)
   SELECT #{CONTENT_COL}
   FROM post
-  WHERE "deleted_at" IS NULL
   ORDER BY "#{DATE_COL}" ASC
   LIMIT 3
 SQL
@@ -93,7 +94,6 @@ puts
 posts_res = conn.exec(<<~SQL)
   SELECT *
   FROM post
-  WHERE "deleted_at" IS NULL
   ORDER BY "#{DATE_COL}" ASC
 SQL
 
@@ -113,6 +113,7 @@ posts_res.each do |row|
   description = DESCRIPTION_COL ? row[DESCRIPTION_COL].to_s.strip : ''
   slug        = SLUG_COL ? row[SLUG_COL].to_s.strip : ''
   categories  = CATEGORY_COL ? row[CATEGORY_COL].to_s.strip : ''
+  published   = DELETED_AT_COL ? row[DELETED_AT_COL].nil? : true
 
   # slug 없으면 title에서 생성
   if slug.empty?
@@ -165,6 +166,7 @@ posts_res.each do |row|
     ---
     layout: post
     lang: ko
+    published: #{published}
     permalink: /ko/#{slug}
     commit_url:
     date: #{date_full}

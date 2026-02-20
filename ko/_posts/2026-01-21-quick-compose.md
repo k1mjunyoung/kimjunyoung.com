@@ -1,6 +1,7 @@
 ---
 layout: post
 lang: ko
+published: false
 permalink: /ko/quick-compose
 commit_url:
 date: 2026-01-21 13:28:33 +0900

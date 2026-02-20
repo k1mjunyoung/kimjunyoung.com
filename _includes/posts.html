@@ -2,7 +2,7 @@
   {% if site.posts.size == 0 %}
     <h2>No job post found</h2>
   {% else %}
-    {% assign related = site.posts | sort: "date" | reverse | where:"lang", page.lang %}
+    {% assign related = site.posts | sort: "date" | reverse | where:"lang", page.lang | where:"published", true %}
     {% if related.size > 0 %}
       {% for post in related %}
         {% assign first_img_url = '' %}

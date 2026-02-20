@@ -4,7 +4,9 @@
       "Bash(xargs -I {} bash -c \"echo ''=== {} ==='' && head -30 {}\")",
       "Bash(head:*)",
       "Bash(xargs cat:*)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(ruby -e:*)",
+      "Bash(ruby:*)"
     ]
   }
 }
