@@ -8,6 +8,9 @@
   a {
     color: var(--color-title);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    //gap: 8px;
     span {
       font-weight: bold;
     }

@@ -14,14 +14,14 @@ layout: default
     <div class="post-date" data-aos="fade-left" data-aos-delay="300" data-aos-offset="0">
       <a href='{{ page.commit_url }}'>
       <small>
-	{{ site.data.translations.postUpdatedBy[page.lang] }}
-	<time>
-     	  {% if page.lang == 'en' %}
-	    {{ page.date | date_to_string }}
-	  {% else %}
-	    {{ page.date | date: "%Y-%m-%d " }}
-	  {% endif %}
-	</time>
+        {{ site.data.translations.postUpdatedBy[page.lang] }}
+        <time>
+            {% if page.lang == 'en' %}
+            {{ page.date | date_to_string }}
+            {% else %}
+            {{ page.date | date: "%Y-%m-%d " }}
+            {% endif %}
+        </time>
       </small>
       </a>
     </div>
