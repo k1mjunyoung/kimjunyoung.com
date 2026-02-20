@@ -1,5 +1,11 @@
 task default: 'test'
 
+desc 'PostgreSQL DB에서 ko/_posts/로 게시물 마이그레이션 (FORCE=1 로 덮어쓰기)'
+task :migrate do
+  force = ENV['FORCE'] == '1' ? '--force' : ''
+  ruby "migrate_from_pg.rb #{force}".strip
+end
+
 desc 'Upsert company data from English/Japanese README'
 task :upsert_data_by_readme do
   ruby "upsert_data_by_readme.rb en"
@@ -18,14 +24,13 @@ namespace :upsert_data_by_readme do
   end
 end
 
-require 'html-proofer'
-# cf. GitHub - gjtorikian/html-proofer
-# https://github.com/gjtorikian/html-proofer
-
-# Load custom checks
-Dir['_tests/*.rb'].each { |file| require_relative file }
-
 task test: [:build] do
+  require 'html-proofer'
+  # cf. GitHub - gjtorikian/html-proofer
+  # https://github.com/gjtorikian/html-proofer
+
+  # Load custom checks
+  Dir['_tests/*.rb'].each { |file| require_relative file }
   options = {
     allow_hash_href:  true,
     disable_external: true,

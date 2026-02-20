@@ -28,3 +28,4 @@ exclude:
   - search.json.original
   - search.json.sample
   - upsert_data_by_readme.rb
+  - migrate_from_pg.rb
