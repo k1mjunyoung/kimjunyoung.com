@@ -5,6 +5,13 @@
     {% assign related = site.posts | sort: "date" | reverse | where:"lang", page.lang %}
     {% if related.size > 0 %}
       {% for post in related %}
+        {% assign first_img_url = '' %}
+        {% if post.content contains '<img' %}
+          {% assign _img_parts = post.content | split: 'src="' %}
+          {% if _img_parts.size > 1 %}
+            {% assign first_img_url = _img_parts[1] | split: '"' | first %}
+          {% endif %}
+        {% endif %}
         <a href="{{ post.permalink }}" class="list-item container">
           <div class="flex-grow-1">
             <div class="">
@@ -17,7 +24,11 @@
             </div>
 
             <div class="">
-              <span class="list-post-description">{{ post.description }}</span>
+              {% if post.description and post.description != '' %}
+                <span class="list-post-description">{{ post.description }}</span>
+              {% else %}
+                <span class="list-post-description">{{ post.content | strip_html | truncate: 280 }}</span>
+              {% endif %}
             </div>
 
             <div class="list-post-written">
@@ -33,19 +44,24 @@
 	      </small>
             </div>
 
+            <div class="post-list-tags">
+              {% for category in post.categories %}
+                {% if category == 'full_remote' %}
+                  <small class="post-tag">{{ site.data.translations.postTagFullRemote[post.lang]}}</small>
+                {% endif %}
+                {% if category == 'ja_required' %}
+                  <small class="post-tag">{{ site.data.translations.postTagJaRequired[post.lang]}}</small>
+                {% endif %}
+              {% endfor %}
+            </div>
           </div>
-          <div class="post-list-tags">
-            {% for category in post.categories %}
-              {% if category == 'full_remote' %} 
-                <small class="post-tag">{{ site.data.translations.postTagFullRemote[post.lang]}}</small> 
-              {% endif %} 
-              {% if category == 'ja_required' %} 
-                <small class="post-tag">{{ site.data.translations.postTagJaRequired[post.lang]}}</small> 
-              {% endif %} 
-            {% endfor %}
-          </div>
+          {% if first_img_url != '' %}
+            <div class="list-post-thumbnail">
+              <img src="{{ first_img_url }}" alt="{{ post.title }}" class="list-post-thumbnail-img" />
+            </div>
+          {% endif %}
         </a>
-      {% endfor %} 
+      {% endfor %}
     {% endif %}
   {% endif %}
 </div>
