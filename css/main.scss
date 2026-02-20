@@ -12,13 +12,14 @@ $baseurl: '{{ site.baseurl }}';
 
 :root {
   // red
-  --color-theme: hsl(0, 74%, 14%);
-  --color-theme-lighter: hsl(0, 75%, 18%);
+  //--color-theme: hsl(0, 74%, 14%);
+  //--color-theme-lighter: hsl(0, 75%, 18%);
   // dark
-  // --color-theme: #282C34;
-  // --color-theme-lighter: #3e4451;
+  --color-theme: #282C34;
+  --color-theme-lighter: #3e4451;
 
-  --color-theme-grey: hsl(0, 74%, 14%, 0.5);
+  // --color-theme-grey: hsl(0, 74%, 14%, 0.5);
+  --color-theme-grey: #6B35C8;
 
   --color-background: hsl(0, 0%, 94%);
   --color-border: hsl(0, 1%, 77%);
@@ -26,17 +27,21 @@ $baseurl: '{{ site.baseurl }}';
   --color-title: hsl(0, 0%, 94%);
   --color-text: hsl(0, 0%, 35%);
 
-  --color-link: hsl(0, 74%, 40%);
-  --color-link-hover: hsl(0, 74%, 45%);
+  // --color-link: hsl(0, 74%, 40%);
+  // --color-link-hover: hsl(0, 74%, 45%);
+  --color-link: #AF87FF;
+  --color-link-hover: #8040D6;
+
   @media screen and (prefers-color-scheme: dark) {
     // red
-    --color-theme: hsl(0, 74%, 14%);
-    --color-theme-lighter: hsl(0, 75%, 18%);
+    //--color-theme: hsl(0, 74%, 14%);
+    //--color-theme-lighter: hsl(0, 75%, 18%);
     // dark
-    // --color-theme: #282C34;
-    // --color-theme-lighter: #3e4451;
+    --color-theme: #282C34;
+    --color-theme-lighter: #3e4451;
 
-    --color-theme-grey: hsl(0, 74%, 14%, 0.5);
+    // --color-theme-grey: hsl(0, 74%, 14%, 0.5);
+    --color-theme-grey: #6B35C8;
 
     --color-background: hsl(220, 5%, 12%);
     --color-border: hsl(0, 0%, 35%);
@@ -44,8 +49,10 @@ $baseurl: '{{ site.baseurl }}';
     --color-text: hsl(40, 10%, 83%);
     --color-title: hsl(40, 10%, 83%);
 
-    --color-link: hsl(0, 74%, 40%);
-    --color-link-hover: hsl(0, 74%, 45%);
+    // --color-link: hsl(0, 74%, 40%);
+    // --color-link-hover: hsl(0, 74%, 45%);
+    --color-link: #AF87FF;
+    --color-link-hover: #B1B9F9;
   }
 }
 
