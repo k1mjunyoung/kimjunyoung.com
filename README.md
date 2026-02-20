@@ -51,13 +51,9 @@ All posts are maintained manually in `en/_posts/`, `ja/_posts/`, and `ko/_posts/
 
 ## Languages
 
+- Korean
 - Japanese
 - English
-
-## Categories
-
-1. Fully remote jobs: `full_remote`
-2. Japanese required remote jobs: `ja_required`
 
 ## Contribute to translation
 

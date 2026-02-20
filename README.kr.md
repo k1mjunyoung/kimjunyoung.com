@@ -55,11 +55,6 @@ Cloudflare Pages는 다음 단계로 빌드를 수행합니다:
 - 영어 (English)
 - 일본어 (Japanese)
 
-## 카테고리
-
-1. 완전 원격 근무: `full_remote`
-2. 일본어 필수 원격 근무: `ja_required`
-
 ## 번역 기여
 
 누락된 번역을 추가해주시면 감사하겠습니다.
