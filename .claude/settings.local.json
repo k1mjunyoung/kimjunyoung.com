@@ -6,7 +6,11 @@
       "Bash(xargs cat:*)",
       "Bash(git mv:*)",
       "Bash(ruby -e:*)",
-      "Bash(ruby:*)"
+      "Bash(ruby:*)",
+      "WebFetch(domain:developers.cloudflare.com)",
+      "Bash(test:*)",
+      "Bash(JEKYLL_ENV=production bundle exec jekyll build:*)",
+      "Bash(bundle install:*)"
     ]
   }
 }

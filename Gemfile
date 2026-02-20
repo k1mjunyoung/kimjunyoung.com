@@ -13,15 +13,6 @@ gem 'bigdecimal'
 gem 'logger'
 gem 'public_suffix'
 
-group :development, :test do
-  gem 'html-proofer'
-end
-
-group :development do
-  gem 'pg'
-  gem 'reverse_markdown'
-end
-
 group :jekyll_plugins do
   gem 'jekyll'
   gem 'jekyll-paginate'
