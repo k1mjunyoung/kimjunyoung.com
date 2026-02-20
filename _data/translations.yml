@@ -17,9 +17,9 @@ viewOnGitHub:
   ko: 'https://github.com/k1mjunyoung'
 
 titleDescription:
-  en: 'Tech companies in Japan that hire remote workers.'
-  ja: 'リモートワークを採用している日本のテクノロジー企業のまとめ。'
-  ko: '백엔드 개발자 김준영입니다.'
+  en: 'Who made this?'
+  ja: '誰が作ったのですか？'
+  ko: '누가 만들었나요?'
 
 searchPlaceholder:
   en: 'e.g. '
