@@ -6,7 +6,7 @@ permalink: /en/architecture-improvement-through-controlleradvice
 commit_url:
 date: 2026-01-28 01:21:03 +0900
 link:
-domain:
+domain: controlleradvice-architecture
 title: Architecture Improvement Through @ControllerAdvice
 description: ''
 categories:

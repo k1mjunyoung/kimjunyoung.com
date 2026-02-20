@@ -6,7 +6,7 @@ permalink: /en/view-count-and-permission-system-improvement
 commit_url:
 date: 2026-01-26 16:47:39 +0900
 link:
-domain:
+domain: view-count-permission-system
 title: View Count and Permission System Improvement
 description: ''
 categories:

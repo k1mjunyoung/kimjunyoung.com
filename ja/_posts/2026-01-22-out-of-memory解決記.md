@@ -6,7 +6,7 @@ permalink: /ja/out-of-memory解決記
 commit_url:
 date: 2026-01-22 10:05:25 +0900
 link:
-domain:
+domain: out-of-memory-resolution
 title: Out Of Memory解決記
 description: ''
 categories:

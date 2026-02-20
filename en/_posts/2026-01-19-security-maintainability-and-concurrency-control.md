@@ -6,7 +6,7 @@ permalink: /en/security-maintainability-and-concurrency-control
 commit_url:
 date: 2026-01-19 16:18:13 +0900
 link:
-domain:
+domain: security-maintainability-concurrency
 title: Security, Maintainability, and Concurrency Control
 description: ''
 categories:

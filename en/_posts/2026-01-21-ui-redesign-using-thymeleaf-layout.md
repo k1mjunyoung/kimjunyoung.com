@@ -6,7 +6,7 @@ permalink: /en/ui-redesign-using-thymeleaf-layout
 commit_url:
 date: 2026-01-21 16:41:29 +0900
 link:
-domain:
+domain: thymeleaf-layout-redesign
 title: UI Redesign Using Thymeleaf Layout
 description: ''
 categories:

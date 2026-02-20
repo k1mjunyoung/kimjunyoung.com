@@ -6,7 +6,7 @@ permalink: /ja/thymeleafレイアウトを利用したui改編記
 commit_url:
 date: 2026-01-21 16:41:29 +0900
 link:
-domain:
+domain: thymeleaf-layout-redesign
 title: Thymeleafレイアウトを利用したUI改編記
 description: ''
 categories:

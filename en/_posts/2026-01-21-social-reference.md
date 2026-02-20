@@ -6,7 +6,7 @@ permalink: /en/social-reference
 commit_url:
 date: 2026-01-21 09:13:06 +0900
 link:
-domain:
+domain: social-reference
 title: Social Reference
 description: ''
 categories:

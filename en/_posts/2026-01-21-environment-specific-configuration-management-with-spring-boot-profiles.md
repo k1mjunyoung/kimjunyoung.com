@@ -6,7 +6,7 @@ permalink: /en/environment-specific-configuration-management-with-spring-boot-pr
 commit_url:
 date: 2026-01-21 16:39:19 +0900
 link:
-domain:
+domain: spring-boot-profiles
 title: Environment-Specific Configuration Management with Spring Boot Profiles
 description: ''
 categories:

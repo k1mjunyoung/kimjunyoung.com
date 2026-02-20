@@ -6,7 +6,7 @@ permalink: /en/improving-post-management-interaction-and-abstracting-frontend-lo
 commit_url:
 date: 2026-01-22 17:45:23 +0900
 link:
-domain:
+domain: post-management-frontend
 title: Improving Post Management Interaction and Abstracting Frontend Logic
 description: ''
 categories:

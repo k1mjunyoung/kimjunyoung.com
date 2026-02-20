@@ -6,7 +6,7 @@ permalink: /ko/cloudflare-r2를-활용한-이미지-업로드-및-자동-정리-
 commit_url:
 date: 2026-01-20 17:44:07 +0900
 link:
-domain:
+domain: cloudflare-r2-image-upload
 title: Cloudflare R2를 활용한 이미지 업로드 및 자동 정리 시스템 구축
 description: ''
 categories: 

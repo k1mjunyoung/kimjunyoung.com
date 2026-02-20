@@ -6,7 +6,7 @@ permalink: /en/someones-interests-seem-related-to-their-deficiencies
 commit_url:
 date: 2026-01-26 18:10:10 +0900
 link:
-domain:
+domain: interests-deficiencies-reflection
 title:
 description: ''
 categories:

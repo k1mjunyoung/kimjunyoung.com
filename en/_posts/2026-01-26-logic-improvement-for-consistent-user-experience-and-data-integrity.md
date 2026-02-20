@@ -6,7 +6,7 @@ permalink: /en/logic-improvement-for-consistent-user-experience-and-data-integri
 commit_url:
 date: 2026-01-26 12:03:59 +0900
 link:
-domain:
+domain: logic-improvement-ux-integrity
 title: Logic Improvement for Consistent User Experience and Data Integrity
 description: ''
 categories:

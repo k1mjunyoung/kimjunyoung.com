@@ -6,7 +6,7 @@ permalink: /ko/spring-boot-프로파일을-활용한-환경별-설정-관리
 commit_url:
 date: 2026-01-21 16:39:19 +0900
 link:
-domain:
+domain: spring-boot-profiles
 title: Spring Boot 프로파일을 활용한 환경별 설정 관리
 description: ''
 categories: 

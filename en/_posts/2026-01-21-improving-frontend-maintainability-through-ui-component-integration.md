@@ -6,7 +6,7 @@ permalink: /en/improving-frontend-maintainability-through-ui-component-integrati
 commit_url:
 date: 2026-01-21 17:33:16 +0900
 link:
-domain:
+domain: ui-component-integration
 title: Improving Frontend Maintainability Through UI Component Integration
 description: ''
 categories:

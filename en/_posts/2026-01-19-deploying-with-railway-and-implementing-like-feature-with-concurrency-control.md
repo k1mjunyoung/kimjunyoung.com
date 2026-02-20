@@ -6,7 +6,7 @@ permalink: /en/deploying-with-railway-and-implementing-like-feature-with-concurr
 commit_url:
 date: 2026-01-19 13:13:12 +0900
 link:
-domain:
+domain: railway-deployment-like-feature
 title: Deploying with Railway and Implementing Like Feature with Concurrency Control
 description: ''
 categories:

@@ -6,7 +6,7 @@ permalink: /ja/spring-bootプロファイルを活用した環境別設定管理
 commit_url:
 date: 2026-01-21 16:39:19 +0900
 link:
-domain:
+domain: spring-boot-profiles
 title: Spring Bootプロファイルを活用した環境別設定管理
 description: ''
 categories:

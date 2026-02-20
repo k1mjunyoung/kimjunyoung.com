@@ -6,7 +6,7 @@ permalink: /ja/controlleradviceによるアーキテクチャ改善
 commit_url:
 date: 2026-01-28 01:21:03 +0900
 link:
-domain:
+domain: controlleradvice-architecture
 title: "@ControllerAdviceによるアーキテクチャ改善"
 description: ''
 categories:

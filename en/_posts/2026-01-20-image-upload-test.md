@@ -6,7 +6,7 @@ permalink: /en/image-upload-test
 commit_url:
 date: 2026-01-20 12:04:31 +0900
 link:
-domain:
+domain: image-upload-test
 title: Image Upload Test
 description: ''
 categories:

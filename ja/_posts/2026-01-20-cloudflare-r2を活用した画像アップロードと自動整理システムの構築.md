@@ -6,7 +6,7 @@ permalink: /ja/cloudflare-r2を活用した画像アップロードと自動整�
 commit_url:
 date: 2026-01-20 17:44:07 +0900
 link:
-domain:
+domain: cloudflare-r2-image-upload
 title: Cloudflare R2を活用した画像アップロードと自動整理システムの構築
 description: ''
 categories:

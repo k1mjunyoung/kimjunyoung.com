@@ -6,7 +6,7 @@ permalink: /ko/out-of-memory-해결기
 commit_url:
 date: 2026-01-22 10:05:25 +0900
 link:
-domain:
+domain: out-of-memory-resolution
 title: Out Of Memory 해결기
 description: ''
 categories: 

@@ -6,7 +6,7 @@ permalink: /en/log-levels
 commit_url:
 date: 2026-01-19 11:06:05 +0900
 link:
-domain:
+domain: log-levels
 title: Log Levels
 description: ''
 categories:

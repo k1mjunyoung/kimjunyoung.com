@@ -6,7 +6,7 @@ permalink: /en/flexible-response-structure-design-and-profile-management-feature
 commit_url:
 date: 2026-01-27 17:45:36 +0900
 link:
-domain:
+domain: profile-management-response
 title: Flexible Response Structure Design and Profile Management Feature Implementation for Improved User Experience
 description: ''
 categories:

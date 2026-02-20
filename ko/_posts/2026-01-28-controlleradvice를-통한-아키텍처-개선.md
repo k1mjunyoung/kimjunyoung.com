@@ -6,7 +6,7 @@ permalink: /ko/controlleradvice를-통한-아키텍처-개선
 commit_url:
 date: 2026-01-28 01:21:03 +0900
 link:
-domain:
+domain: controlleradvice-architecture
 title: "@ControllerAdvice를 통한 아키텍처 개선"
 description: ''
 categories: 

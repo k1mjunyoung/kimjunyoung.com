@@ -6,7 +6,7 @@ permalink: /en/search-feature-implementation-and-service-stabilization-journey-f
 commit_url:
 date: 2026-01-23 17:02:32 +0900
 link:
-domain:
+domain: search-feature-stabilization
 title: Search Feature Implementation and Service Stabilization Journey for Official Muje Deployment
 description: ''
 categories:
