@@ -1,92 +1,189 @@
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2N12DFZTYC"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1YJ6S21G70"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+    gtag('config', 'G-1YJ6S21G70');
+</script>
 
-        gtag('js', new Date());
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        gtag('config', 'G-2N12DFZTYC');
-    </script>
+{% if page.title %}
+<title>{{ page.title }} - {{ site.title }}</title>
+<meta name="title" content="{{ page.title }} - {{ site.title }}" />
+<meta name="twitter:title" content="{{ page.title }} - {{ site.title }}" />
+<meta property="og:title" content="{{ page.title }} - {{ site.title }}" />
+<meta property="og:site_name" content="{{ site.title }}" />
+<meta itemprop="name" content="{{ page.title }} - {{ site.title }}" />
+{% else %}
+<title>{{ site.title }}</title>
+<meta name="title" content="{{ site.title }}" />
+<meta name="twitter:title" content="{{ site.title }}" />
+<meta property="og:title" content="{{ site.title }}" />
+<meta property="og:site_name" content="{{ site.title }}" />
+<meta itemprop="name" content="{{ site.title }}" />
+{% endif %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% if page.description and page.description != "" %}
+<meta name="description" content="{{ page.description }}"/>
+<meta name="twitter:description" content="{{ page.description }}"/>
+<meta property="og:description" content="{{ page.description }}"/>
+<meta itemprop="description" content="{{ page.description }}"/>
+{% else %}
+<meta name="description" content="{{ site.seo.description[page.lang] }}"/>
+<meta name="twitter:description" content="{{ site.seo.description[page.lang] }}"/>
+<meta property="og:description" content="{{ site.seo.description[page.lang] }}"/>
+<meta itemprop="description" content="{{ site.seo.description[page.lang] }}"/>
+{% endif %}
 
-    {% if page.title %}
-    <title>{{ page.title }} - {{ site.title }}</title>
-    <meta name="title" content="{{ page.title }} - {{ site.title }}"/>
-    <meta name="twitter:title" content="{{ page.title }} - {{ site.title }}"/>
-    <meta property="og:title" content="{{ page.title }} - {{ site.title }}"/>
-    <meta property="og:site_name" content="{{ page.title }} - {{ site.title }}"/>
-    <meta itemprop="name" content="{{ page.title }} - {{ site.title }}"/>
-    {% else %}
-    <title>{{ site.title }} - {{ site.data.translations.titleDescription[lang] }}</title>
-    <meta name="title" content="{{ site.title }} - {{ site.data.translations.titleDescription[lang] }}"/>
-    <meta name="twitter:title" content="{{ site.title }} - {{ site.data.translations.titleDescription[lang] }}"/>
-    <meta property="og:title" content="{{ site.title }} - {{ site.data.translations.titleDescription[lang] }}"/>
-    <meta property="og:site_name" content="{{ site.title }} - {{ site.data.translations.titleDescription[lang] }}"/>
-    <meta itemprop="name" content="{{ site.title }} - {{ site.data.translations.titleDescription[lang] }}"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/the-grid-flexbox@2.0.1/css/the-grid.min.css">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ page.url | absolute_url }}" />
+
+<!-- hreflang for multilingual SEO -->
+{% if page.layout == 'post' %}
+  <!-- 포스트: domain 필드로 다국어 버전 감지 -->
+  {% if page.domain and page.domain != "" %}
+    {% assign url_en = site.posts | where: 'lang', 'en' | where: 'domain', page.domain | map: 'url' | first %}
+    {% assign url_ja = site.posts | where: 'lang', 'ja' | where: 'domain', page.domain | map: 'url' | first %}
+    {% assign url_ko = site.posts | where: 'lang', 'ko' | where: 'domain', page.domain | map: 'url' | first %}
+
+    {% if url_en %}
+    <link rel="alternate" hreflang="en" href="{{ url_en | absolute_url }}" />
+    {% endif %}
+    {% if url_ja %}
+    <link rel="alternate" hreflang="ja" href="{{ url_ja | absolute_url }}" />
+    {% endif %}
+    {% if url_ko %}
+    <link rel="alternate" hreflang="ko" href="{{ url_ko | absolute_url }}" />
     {% endif %}
 
-    {% if page.description %}
-    <meta name="description" content="{{ page.description }}"/>
-    <meta name="twitter:description" content="{{ page.description }}"/>
-    <meta property="og:description" content="{{ page.description }}"/>
-    <meta itemprop="description" content="{{ page.description }}"/>
-    {% else %}
-    <meta name="description" content="{{ site.data.translations.titleDescription[lang] }}"/>
-    <meta name="twitter:description" content="{{ site.data.translations.titleDescription[lang] }}"/>
-    <meta property="og:description" content="{{ site.data.translations.titleDescription[lang] }}"/>
-    <meta itemprop="description" content="{{ site.data.translations.titleDescription[lang] }}"/>
-    {% endif %}
+    <!-- x-default: redirect.html 자동 감지 활용 (루트 페이지) -->
+    <link rel="alternate" hreflang="x-default" href="{{ site.url }}/" />
+  {% else %}
+    <!-- domain 없는 포스트: 현재 언어만 -->
+    <link rel="alternate" hreflang="{{ page.lang }}" href="{{ page.url | absolute_url }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}" />
+  {% endif %}
+{% else %}
+  <!-- 인덱스 페이지: 각 언어 인덱스 상호 참조 -->
+  <link rel="alternate" hreflang="en" href="{{ site.url }}/en" />
+  <link rel="alternate" hreflang="ja" href="{{ site.url }}/ja" />
+  <link rel="alternate" hreflang="ko" href="{{ site.url }}/ko" />
+  <!-- x-default: 루트 페이지 (redirect.html의 자동 감지) -->
+  <link rel="alternate" hreflang="x-default" href="{{ site.url }}/" />
+{% endif %}
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,600">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/the-grid-flexbox@2.0.1/css/the-grid.min.css">
-    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/main.css">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    
-    <!-- Prism.js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+<!-- Prism.js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ site.url }}/assets/img/logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ site.url }}/assets/img/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ site.url }}/assets/img/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ site.url }}/assets/img/logo.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ site.url }}/assets/img/logo.png">
+<!-- Favicon -->
+<link rel="shortcut icon" href="{{ site.url }}{{ site.images.favicon }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ site.url }}{{ site.images.favicon }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ site.url }}{{ site.images.favicon }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ site.url }}{{ site.images.favicon }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ site.url }}{{ site.images.favicon }}">
 
-    <!-- FontAwesome -->
-    <script src="https://kit.fontawesome.com/82f32b9df5.js" crossorigin="anonymous"></script>
+<!-- FontAwesome -->
+<script src="https://kit.fontawesome.com/82f32b9df5.js" crossorigin="anonymous"></script>
 
-    <!-- Facebook -->
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="{{ page.url | absolute_url }}"/>
-    <meta property="og:image" content="{{ site.url }}/assets/img/facebook_ogp.png"/>
-    <meta property="fb:app_id" content="1154262757941899"/>
-    <meta property="fb:admins" content="100002787447461"/>
+<!-- Open Graph Type 분기 -->
+{% if page.layout == 'post' %}
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}"/>
+{% if page.date != page.modified_date and page.modified_date %}
+<meta property="article:modified_time" content="{{ page.modified_date | date_to_xmlschema }}"/>
+{% endif %}
+<meta property="article:section" content="Technology"/>
+{% for category in page.categories %}
+<meta property="article:tag" content="{{ category }}"/>
+{% endfor %}
+{% else %}
+<meta property="og:type" content="website"/>
+{% endif %}
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:image" content="{{ site.url }}/assets/img/twitter_card.png">
-    <meta itemprop="image" content="{{ site.url }}/assets/img/twitter_card.png">
+<meta property="og:url" content="{{ page.url | absolute_url }}"/>
 
-    <!-- Schema.org JSON-LD -->
-    {% if page.layout == 'post' and page.domain %}
-    <script type="application/ld+json">
-        {
-            % include organization-json-ld.json %}
-    </script>
-    {% else %}
-    <script type="application/ld+json">
-        {
-            % include website-json-ld.json %}
-    </script>
-    {% endif %}
+<!-- og:locale 추가 -->
+{% if page.lang == 'en' %}
+<meta property="og:locale" content="en_US"/>
+{% elsif page.lang == 'ja' %}
+<meta property="og:locale" content="ja_JP"/>
+{% elsif page.lang == 'ko' %}
+<meta property="og:locale" content="ko_KR"/>
+{% endif %}
+
+<!-- og:locale:alternate (다국어 버전 명시) -->
+{% if page.layout == 'post' and page.domain and page.domain != "" %}
+  {% assign url_en = site.posts | where: 'lang', 'en' | where: 'domain', page.domain | first %}
+  {% assign url_ja = site.posts | where: 'lang', 'ja' | where: 'domain', page.domain | first %}
+  {% assign url_ko = site.posts | where: 'lang', 'ko' | where: 'domain', page.domain | first %}
+
+  {% if url_en and page.lang != 'en' %}
+  <meta property="og:locale:alternate" content="en_US"/>
+  {% endif %}
+  {% if url_ja and page.lang != 'ja' %}
+  <meta property="og:locale:alternate" content="ja_JP"/>
+  {% endif %}
+  {% if url_ko and page.lang != 'ko' %}
+  <meta property="og:locale:alternate" content="ko_KR"/>
+  {% endif %}
+{% else %}
+  {% if page.lang != 'en' %}
+  <meta property="og:locale:alternate" content="en_US"/>
+  {% endif %}
+  {% if page.lang != 'ja' %}
+  <meta property="og:locale:alternate" content="ja_JP"/>
+  {% endif %}
+  {% if page.lang != 'ko' %}
+  <meta property="og:locale:alternate" content="ko_KR"/>
+  {% endif %}
+{% endif %}
+
+<!-- og:image: 포스트별 이미지 우선, 없으면 기본 이미지 -->
+{% if page.image %}
+<meta property="og:image" content="{{ site.url }}{{ page.image }}"/>
+<meta property="og:image:width" content="{{ site.images.defaultWidth }}"/>
+<meta property="og:image:height" content="{{ site.images.defaultHeight }}"/>
+{% else %}
+<meta property="og:image" content="{{ site.url }}{{ site.images.ogImage }}"/>
+<meta property="og:image:width" content="{{ site.images.defaultWidth }}"/>
+<meta property="og:image:height" content="{{ site.images.defaultHeight }}"/>
+{% endif %}
+
+<!-- Twitter Card 개선 -->
+{% if page.layout == 'post' %}
+<meta name="twitter:card" content="summary_large_image">
+{% else %}
+<meta name="twitter:card" content="summary">
+{% endif %}
+
+{% if page.image %}
+<meta name="twitter:image" content="{{ site.url }}{{ page.image }}">
+<meta itemprop="image" content="{{ site.url }}{{ page.image }}">
+{% else %}
+<meta name="twitter:image" content="{{ site.url }}{{ site.images.twitterCard }}">
+<meta itemprop="image" content="{{ site.url }}{{ site.images.twitterCard }}">
+{% endif %}
+
+<!-- Schema.org JSON-LD -->
+{% if page.layout == 'post' %}
+<script type="application/ld+json">
+{% include article-json-ld.json %}
+</script>
+{% else %}
+<script type="application/ld+json">
+{% include website-json-ld.json %}
+</script>
+{% endif %}
 </head>

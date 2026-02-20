@@ -1,9 +1,44 @@
 # Site settings
 title: 'kimjunyoung'
-description: '김준영, 백엔드 개발자. Kim Junyoung, backend engineer in Korea.'
 baseurl: '/'
-url: 'https://kimjunyoung.com'
-domain: 'kimjunyoung.com'
+url: 'https://www.kimjunyoung.com'
+domain: 'www.kimjunyoung.com'
+
+# Author & Publisher 정보 (SEO, JSON-LD에서 사용)
+author:
+  name: 'Kim Junyoung'
+  jobTitle: 'Backend Engineer'
+  # company: 'UST21'
+  # university: 'Soonchunhyang University'
+  logo:
+    url: '/assets/img/logo.png'
+    width: 192
+    height: 192
+
+# 기본 이미지 (Open Graph, Twitter Card, Favicon)
+images:
+  ogImage: '/assets/img/facebook_ogp.png'
+  twitterCard: '/assets/img/twitter_card.png'
+  favicon: '/assets/img/favicon.png'
+  defaultWidth: 1200
+  defaultHeight: 630
+
+# SEO 설정 (title, meta description, JSON-LD에서 사용)
+seo:
+  # 사이트 설명 (인덱스 페이지 title, description, 포스트 fallback에 모두 사용)
+  description:
+    en: "Kim Junyoung's blog - Backend engineer writing about technology and everyday life."
+    ja: "Kim Junyoung（キム・ジュニョン）のブログ。バックエンドエンジニアとして、技術と日常を記録しています。"
+    ko: '김준영(Kim Junyoung), 백엔드 개발자의 블로그. 기술 이야기와 일상을 기록합니다.'
+
+  # 기본 키워드 (JSON-LD에서 사용)
+  defaultKeywords:
+    - 'Kim Junyoung'
+    - 'Backend Engineer'
+    - 'Java'
+    - 'Spring Framework'
+    - 'Developer Blog'
+    - '김준영'
 
 # Build settings
 markdown: kramdown
