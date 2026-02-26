@@ -1,6 +1,11 @@
 # CLAUDE.md
 
-이 파일은 Claude Code(claude.ai/code)가 이 저장소에서 작업할 때 참고하는 가이드입니다.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 환경 설정
+
+- **Ruby 버전**: 3.4.4 (`.ruby-version` 파일 참조)
+- **초기 설정**: `bundle install`
 
 ## 명령어
 
@@ -9,13 +14,18 @@
 bundle exec jekyll serve
 
 # 프로덕션 빌드
-bundle exec rake build
+bundle exec jekyll build
+
+# 빌드 캐시 정리
+bundle exec rake clean
 
 # 테스트 실행 (HTMLProofer + 커스텀 JSON-LD 검증)
+# 참고: test는 자동으로 clean + build를 먼저 실행함
 bundle exec rake test
 
-# README에서 포스트 자동 생성/갱신 (en/ja 전용)
-bundle exec rake upsert_data_by_readme
+# PostgreSQL에서 ko/_posts/로 포스트 마이그레이션 (선택적)
+bundle exec rake migrate          # 기존 파일 건너뜀
+bundle exec rake migrate FORCE=1  # 기존 파일 덮어쓰기
 ```
 
 ## 아키텍처
@@ -34,16 +44,27 @@ ko/index.md  (lang: ko)   ko/_posts/
 
 언어는 front matter의 `page.lang`으로 감지된다. 모든 템플릿은 `lang` 값으로 `_data/translations.yml`을 참조한다. 루트 `/`는 `redirect.html`이 처리하며 브라우저 언어를 감지해 리다이렉트한다 (`ko` → `/ko`, `ja` → `/ja`, 기본값 → `/en`).
 
-### 자동 생성 포스트 (en/ja 전용)
+### 포스트 관리
 
-`en/_posts/`와 `ja/_posts/`는 `upsert_data_by_readme.rb`가 README 테이블 데이터를 파싱해 **자동 생성**한다. 이 파일들을 직접 수정하면 다음 실행 시 덮어써진다. `ko/_posts/`의 한국어 포스트는 수동으로 작성한다.
+**모든 포스트는 수동으로 작성 및 관리한다** (`en/_posts/`, `ja/_posts/`, `ko/_posts/`). 포스트는 다음 front matter 필드를 포함한다:
 
-포스트 front matter 주요 필드:
 - `lang`: `en`, `ja`, `ko`
-- `permalink`: `/[lang]/[domain-slug]` (예: `/en/corp-sansan_com`)
-- `domain`: `post.html`에서 언어 간 교차 링크 생성에 사용되는 공개 도메인
-- `categories`: `full_remote` 및/또는 `ja_required` (태그로 표시)
-- `redirect_from`: `jekyll-redirect-from` 플러그인이 처리하는 구 URL 별칭
+- `permalink`: `/[lang]/[slug]` (예: `/ko/my-post`)
+- `title`: 포스트 제목
+- `description`: 포스트 설명 (SEO용)
+- `date`: 발행일 (YAML 날짜 형식)
+- `categories`: 카테고리 (선택적)
+- `redirect_from`: 구 URL 리다이렉트 별칭 (선택적, `jekyll-redirect-from` 플러그인 사용)
+
+### SEO 및 메타데이터
+
+`_config.yml`에 SEO 관련 설정이 구조화되어 있다:
+
+- **author**: 작성자 정보 (`name`, `jobTitle`, `logo`)
+- **images**: 소셜 미디어 이미지 (`ogImage`, `twitterCard`, `favicon`)
+- **seo**: 사이트 설명(`description`) 및 키워드(`defaultKeywords`)
+  - 각 언어(`en`, `ja`, `ko`)별 `description` 제공
+  - JSON-LD 스키마에서 사용됨
 
 ### 검색
 
@@ -56,15 +77,46 @@ ko/index.md  (lang: ko)   ko/_posts/
 ### 레이아웃 및 인클루드
 
 - `_layouts/default.html`: 루트 HTML 셸. 언어별 설정으로 SimpleJekyllSearch 초기화
-- `_layouts/post.html`: 포스트 페이지. `domain` 필드로 en/ja 관련 포스트를 감지해 교차 언어 링크 제공 (ko은 교차 링크 없음)
+- `_layouts/post.html`: 포스트 페이지. SEO 메타태그 및 JSON-LD 스키마 포함
 - `_layouts/redirect.html`: 포스트별 리다이렉트(`jekyll-redirect-from`)와 루트 언어 감지 처리
 - `_includes/posts.html`: `site.posts`를 `page.lang`으로 자동 필터링 — 언어 포스트 추가 시 수정 불필요
 - `_includes/head.html`: JSON-LD 스키마 (포스트: Organization, 인덱스: WebSite), Google Analytics
 
 ### 테스트
 
-`bundle exec rake test`는 HTMLProofer와 커스텀 `_tests/json_ld_check.rb`(모든 `<script type="application/ld+json">` 블록 유효성 검사)를 실행한다. 테스트 전에 반드시 빌드(`jekyll build`)가 선행되어야 한다.
+`bundle exec rake test`는 다음을 실행한다:
+1. `rake clean`: Jekyll 캐시 정리
+2. `jekyll build`: 사이트 빌드
+3. **HTMLProofer**: 링크, 이미지, Open Graph, Favicon 검증
+4. **커스텀 JSON-LD 검증** (`_tests/json_ld_check.rb`): 모든 `<script type="application/ld+json">` 블록 유효성 검사
+
+테스트는 의존성 체인으로 자동 실행되므로 별도로 빌드할 필요 없다.
+
+### PostgreSQL 마이그레이션 (선택적)
+
+`migrate_from_pg.rb` 스크립트는 PostgreSQL DB에서 `ko/_posts/`로 포스트를 마이그레이션한다.
+
+**환경 변수**:
+- `PG_HOST` (기본값: localhost)
+- `PG_PORT` (기본값: 5432)
+- `PG_DBNAME` (기본값: railway)
+- `PG_USER` (기본값: postgres)
+- `PG_PASSWORD` (기본값: postgres)
+
+스크립트는 자동으로 컬럼을 감지하고 HTML을 Markdown으로 변환한다.
 
 ### 배포
 
-모든 push/PR에서 CI가 빌드하고, `main` 브랜치 병합 시 GitHub Pages(`gh-pages` 브랜치)에 배포한다. 배포 잡은 빌드 전에 `upsert_data_by_readme`를 실행하고 생성된 포스트를 봇 커밋으로 자동 저장한다.
+**Cloudflare Pages**에 배포된다. Cloudflare Pages 설정:
+
+| 설정                     | 값                    |
+|------------------------|----------------------|
+| Build command          | `jekyll build`       |
+| Build output directory | `_site`              |
+| Production branch      | `cf-pages`           |
+| 환경 변수                  | `RUBY_VERSION=3.4.4` |
+
+배포 프로세스:
+1. `bundle install` (의존성 설치)
+2. `jekyll build` (사이트 빌드)
+3. `_site/` 디렉토리 배포

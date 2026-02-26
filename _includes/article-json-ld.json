@@ -9,15 +9,16 @@
   "author": {
     "@type": "Person",
     "name": "{{ site.author.name }}",
+    "alternateName": ["김준영", "개발자 준영", "kimjunyoung", "k1mjunyoung"],
     "jobTitle": "{{ site.author.jobTitle }}",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "{{ site.author.company }}"
-    },
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "{{ site.author.university }}"
-    }
+    "url": "{{ site.url }}/{{ page.lang }}/about",
+    "sameAs": [
+      "https://github.com/{{ site.social.github }}",
+      "https://x.com/{{ site.social.x }}",
+      "https://instagram.com/{{ site.social.instagram }}",
+      "https://linkedin.com/in/{{ site.social.linkedin }}",
+      "{{ site.url }}"
+    ]
   },
   "publisher": {
     "@type": "Person",

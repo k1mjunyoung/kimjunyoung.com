@@ -1,6 +1,6 @@
 # Site settings
-title: 'kimjunyoung'
-baseurl: '/'
+title: '개발자 준영 (김준영, Kim Junyoung) | 백엔드 개발자'
+#baseurl: '/'
 url: 'https://www.kimjunyoung.com'
 domain: 'www.kimjunyoung.com'
 
@@ -27,18 +27,20 @@ images:
 seo:
   # 사이트 설명 (인덱스 페이지 title, description, 포스트 fallback에 모두 사용)
   description:
-    en: "Kim Junyoung's blog - Backend engineer writing about technology and everyday life."
-    ja: "Kim Junyoung（キム・ジュニョン）のブログ。バックエンドエンジニアとして、技術と日常を記録しています。"
-    ko: '김준영(Kim Junyoung), 백엔드 개발자의 블로그. 기술 이야기와 일상을 기록합니다.'
+    en: "Kim Junyoung (k1mjunyoung) — Backend engineer writing about tech and everyday life. Developer blog by kimjunyoung.com"
+    ja: "じゅんご（Kim Junyoung）のブログ。バックエンドエンジニアとして、技術・日常・振り返りを記録しています。kimjunyoung.com"
+    ko: '김준영(Kim Junyoung), 개발자 준영의 블로그. 백엔드 개발자의 기술 이야기와 일상, 회고를 기록합니다. kimjunyoung.com'
 
   # 기본 키워드 (JSON-LD에서 사용)
   defaultKeywords:
     - 'Kim Junyoung'
-    - 'Backend Engineer'
-    - 'Java'
-    - 'Spring Framework'
-    - 'Developer Blog'
     - '김준영'
+    - '개발자 준영'
+    - 'kimjunyoung'
+    - 'k1mjunyoung'
+    - 'Backend Engineer'
+    - 'Blog'
+    - 'Developer Blog'
 
 # Build settings
 markdown: kramdown
@@ -64,3 +66,10 @@ exclude:
   - search.json.sample
   - upsert_data_by_readme.rb
   - migrate_from_pg.rb
+
+social:
+  domain: 'kimjunyoung.com'
+  github: 'k1mjunyoung'
+  x: 'k1mjunyoung'
+  instagram: 'k1mjunyoung'
+  linkedin: 'kimjunyoung'
