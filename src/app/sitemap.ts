@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next';
+
 import { getAllPosts } from '@/lib/posts';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL!;
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts('ko');
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getAllPosts();
 
   const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${SITE_URL}/post/${post.slug}`,

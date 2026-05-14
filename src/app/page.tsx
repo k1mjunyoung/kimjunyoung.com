@@ -4,8 +4,8 @@ import PostList from '@/components/PostList';
 import JsonLd from '@/components/JsonLd';
 import { websiteSchema } from '@/lib/seo';
 
-export default function IndexPage() {
-  const posts = getAllPosts('ko');
+export default async function IndexPage() {
+  const posts = await getAllPosts();
   return (
     <>
       <JsonLd schema={websiteSchema()} />

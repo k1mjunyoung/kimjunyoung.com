@@ -14,23 +14,26 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return getAllPosts('ko').map((p) => ({ slug: p.slug }));
+  const posts = await getAllPosts();
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return buildMetadata(post);
 }
 
 export default async function PostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
   const html = await renderMarkdown(post.content);
-  const { prev, next } = getPrevNext(slug);
+  const { prev, next } = await getPrevNext(slug);
   const dateStr = post.date ? post.date.slice(0, 10) : '';
 
   return (
@@ -65,17 +68,9 @@ export default async function PostPage({ params }: Props) {
             </h1>
 
             <div style={{ marginBottom: '16px' }}>
-              {post.commit_url ? (
-                <a href={post.commit_url}>
-                  <small>
-                    업데이트 <time dateTime={post.date}>{dateStr}</time>
-                  </small>
-                </a>
-              ) : (
-                <small>
-                  업데이트 <time dateTime={post.date}>{dateStr}</time>
-                </small>
-              )}
+              <small>
+                업데이트 <time dateTime={post.date}>{dateStr}</time>
+              </small>
             </div>
 
             <div
@@ -85,15 +80,6 @@ export default async function PostPage({ params }: Props) {
 
             <p>
               <small>
-                {post.link && (
-                  <>
-                    링크:{' '}
-                    <a href={post.link} target="_blank" rel="noopener noreferrer">
-                      {post.link}
-                    </a>
-                    <br />
-                  </>
-                )}
                 공유{' '}
                 <a
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&hashtags=개발자준영&lang=ko&url=${encodeURIComponent(`https://www.kimjunyoung.com/post/${post.slug}`)}`}

@@ -5,69 +5,69 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 
-function parseFrontMatter(content) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!match) return { data: {}, body: content };
-
-  const yaml = match[1];
-  const data = {};
-
-  for (const line of yaml.split('\n')) {
-    const colon = line.indexOf(':');
-    if (colon === -1) continue;
-    const key = line.slice(0, colon).trim();
-    const val = line.slice(colon + 1).trim().replace(/^['"]|['"]$/g, '');
-    if (key && val) data[key] = val;
+function loadEnv() {
+  const envPath = path.join(ROOT, '.env.local');
+  if (!fs.existsSync(envPath)) return {};
+  const env = {};
+  for (const line of fs.readFileSync(envPath, 'utf-8').split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const val = trimmed.slice(eqIdx + 1).trim().replace(/^['"]|['"]$/g, '');
+    env[key] = val;
   }
-
-  return { data, body: content.slice(match[0].length) };
+  return env;
 }
 
-function buildIndex(lang) {
-  const postsDir = path.join(ROOT, 'ko', '_posts');
-  if (!fs.existsSync(postsDir)) return [];
+async function buildIndex() {
+  const env = loadEnv();
+  const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  const files = fs.readdirSync(postsDir).filter((f) => f.endsWith('.md'));
-  const items = [];
-
-  for (const filename of files) {
-    const raw = fs.readFileSync(path.join(postsDir, filename), 'utf-8');
-    const { data, body } = parseFrontMatter(raw);
-
-    if (data.published === 'false') continue;
-
-    const permalink = data.permalink ?? '';
-    const slug =
-      permalink.split('/').filter(Boolean).pop() ||
-      filename.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '');
-
-    const url = `/post/${slug}`;
-    const description = data.description ?? body.replace(/[#*`>\[\]]/g, '').slice(0, 500).trim();
-
-    const categories = (data.categories ?? '').split(',').map((s) => s.trim());
-    const full_remote = categories.includes('full_remote') ? '풀 리모트 👌' : '';
-    const ja_required = categories.includes('ja_required') ? '일본어 필요' : '';
-
-    items.push({
-      title: data.title ?? '',
-      url,
-      description,
-      full_remote,
-      ja_required,
-    });
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('[build-search] NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY 누락');
+    process.exit(1);
   }
 
-  return items;
+  const res = await fetch(
+    `${supabaseUrl}/rest/v1/post?published=eq.true&lang=eq.ko&select=title,slug,description,categories`,
+    {
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+      },
+    },
+  );
+
+  if (!res.ok) {
+    console.error('[build-search] Supabase 요청 실패:', await res.text());
+    process.exit(1);
+  }
+
+  const posts = await res.json();
+
+  return posts.map((post) => {
+    const categories = post.categories ?? [];
+    return {
+      title: post.title ?? '',
+      url: `/post/${post.slug}`,
+      description: post.description ?? '',
+      full_remote: categories.includes('full_remote') ? '풀 리모트 👌' : '',
+      ja_required: categories.includes('ja_required') ? '일본어 필요' : '',
+    };
+  });
 }
 
 const publicDir = path.join(ROOT, 'public');
 fs.mkdirSync(publicDir, { recursive: true });
 
-const koIndex = buildIndex('ko');
+const koIndex = await buildIndex();
 fs.writeFileSync(
   path.join(publicDir, 'search-ko.json'),
   JSON.stringify(koIndex, null, 2),
-  'utf-8'
+  'utf-8',
 );
 
-console.log(`[build-search] search-ko.json: ${koIndex.length} entries`);
+console.log(`[build-search] search-ko.json: ${koIndex.length}개 항목`);

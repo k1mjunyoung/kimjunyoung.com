@@ -1,105 +1,51 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { cache } from 'react';
+import { supabase } from './supabase';
+import type { Post } from '@/types/post';
 
-export interface Post {
-  lang: string;
-  slug: string;
-  permalink: string;
-  title: string;
-  description: string;
-  date: string;
-  categories: string[];
-  domain: string;
-  link: string;
-  commit_url: string;
-  redirect_from: string[];
-  content: string;
-  firstImage: string | null;
-}
+export type { Post };
 
-// Posts live in ko/_posts/ (Jekyll convention retained during Supabase transition)
-const POSTS_DIR = path.join(process.cwd(), 'ko', '_posts');
+const fetchAllPosts = cache(async (): Promise<Post[]> => {
+  const { data, error } = await supabase
+    .from('post')
+    .select('*')
+    .eq('is_public', true)
+    .order('date', { ascending: false });
 
-let _cache: Post[] | null = null;
-
-function parsePost(filename: string, raw: string): Post {
-  const { data, content } = matter(raw);
-
-  const permalink: string = data.permalink ?? '';
-  const slugFromPermalink = permalink.split('/').filter(Boolean).pop();
-  const slugFromFilename = filename
-    .replace(/^\d{4}-\d{2}-\d{2}-/, '')
-    .replace(/\.md$/, '');
-  const slug = slugFromPermalink || slugFromFilename;
-
-  const imgMatch = content.match(/<img[^>]+src="([^"]+)"/);
-  const mdImgMatch = content.match(/!\[[^\]]*\]\(([^)]+)\)/);
-  const firstImage = imgMatch?.[1] ?? mdImgMatch?.[1] ?? null;
-
-  const categories = data.categories
-    ? (Array.isArray(data.categories) ? data.categories : [data.categories]).filter(Boolean)
-    : [];
-
-  const redirect_from = data.redirect_from
-    ? (Array.isArray(data.redirect_from) ? data.redirect_from : [data.redirect_from]).filter(Boolean)
-    : [];
-
-  return {
-    lang: data.lang ?? 'ko',
-    slug,
-    permalink,
-    title: data.title ?? '',
-    description: data.description ?? '',
-    date: data.date ? new Date(data.date).toISOString() : '',
-    categories,
-    domain: data.domain ?? '',
-    link: data.link ?? '',
-    commit_url: data.commit_url ?? '',
-    redirect_from,
-    content,
-    firstImage,
-  };
-}
-
-export function getAllPosts(lang = 'ko'): Post[] {
-  if (_cache) return _cache;
-
-  const langDir = POSTS_DIR;
-  if (!fs.existsSync(langDir)) return [];
-
-  const files = fs.readdirSync(langDir).filter((f) => f.endsWith('.md'));
-
-  const posts: Post[] = [];
-  for (const filename of files) {
-    const raw = fs.readFileSync(path.join(langDir, filename), 'utf-8');
-    const { data } = matter(raw);
-    if (data.published === false) continue;
-    posts.push(parsePost(filename, raw));
+  if (error) {
+    console.error('[getAllPosts]', error.message);
+    return [];
   }
+  return data ?? [];
+});
 
-  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  _cache = posts;
-  return posts;
+export async function getAllPosts(): Promise<Post[]> {
+  return fetchAllPosts();
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return getAllPosts().find((p) => p.slug === slug);
+export async function getPostBySlug(slug: string): Promise<Post | undefined> {
+  const { data, error } = await supabase
+    .from('post')
+    .select('*')
+    .eq('slug', slug)
+    .eq('is_public', true)
+    .maybeSingle();
+
+  if (error) {
+    console.error('[getPostBySlug]', error.message);
+    return undefined;
+  }
+  return data ?? undefined;
 }
 
-export function getPrevNext(slug: string): { prev: Post | null; next: Post | null } {
-  const posts = getAllPosts();
+export async function getPrevNext(
+  slug: string,
+): Promise<{ prev: Post | null; next: Post | null }> {
+  const posts = await fetchAllPosts();
   const idx = posts.findIndex((p) => p.slug === slug);
   if (idx === -1) return { prev: null, next: null };
 
-  // Jekyll convention: prev = newer (lower index), next = older (higher index), wrap around
   const prevIdx = idx === 0 ? posts.length - 1 : idx - 1;
   const nextIdx = idx === posts.length - 1 ? 0 : idx + 1;
 
   return { prev: posts[prevIdx], next: posts[nextIdx] };
-}
-
-export function getPostsByDomain(domain: string): Post[] {
-  return getAllPosts().filter((p) => p.domain === domain);
 }

@@ -8,7 +8,7 @@ const OG_IMAGE = process.env.NEXT_PUBLIC_OG_IMAGE!;
 
 export function buildMetadata(post: Post): Metadata {
   const canonical = `/post/${post.slug}`;
-  const image = post.firstImage ?? OG_IMAGE;
+  const image = post.thumbnail_url ?? OG_IMAGE;
 
   return {
     metadataBase: new URL(SITE_URL),
