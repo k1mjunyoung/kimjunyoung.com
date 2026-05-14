@@ -2,7 +2,9 @@
 
 import { useEffect, useRef } from 'react';
 import Script from 'next/script';
-import { ADSENSE_CLIENT, ADSENSE_SLOT } from '@/i18n/translations';
+
+const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT!;
+const ADSENSE_SLOT = process.env.NEXT_PUBLIC_ADSENSE_SLOT!;
 
 export default function AdSense() {
   const insRef = useRef<HTMLModElement>(null);

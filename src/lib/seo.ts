@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
 import type { Post } from './posts';
-import { SITE_TITLE, SITE_URL, SEO_DESC, OG_IMAGE } from '@/i18n/translations';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL!;
+const SITE_TITLE = process.env.NEXT_PUBLIC_SITE_TITLE!;
+const SEO_DESC = process.env.NEXT_PUBLIC_SEO_DESC!;
+const OG_IMAGE = process.env.NEXT_PUBLIC_OG_IMAGE!;
 
 export function buildMetadata(post: Post): Metadata {
   const canonical = `/post/${post.slug}`;

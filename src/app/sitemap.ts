@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/posts';
-import { SITE_URL } from '@/i18n/translations';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL!;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts('ko');

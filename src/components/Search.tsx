@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
 import Fuse from 'fuse.js';
-import { t } from '@/i18n/translations';
+import { Input } from '@/components/ui/input';
 
 interface SearchItem {
   title: string;
@@ -55,7 +55,7 @@ export default function Search() {
 
   useEffect(() => {
     const p = shuffle(PLACEHOLDERS);
-    setPlaceholder(`${t.searchPlaceholder}${p[0]}, ${p[1]}, ${p[2]}`);
+    setPlaceholder(`검색: ${p[0]}, ${p[1]}, ${p[2]}`);
   }, []);
 
   const fuse = useMemo(
@@ -99,7 +99,7 @@ export default function Search() {
         <span style={{ display: 'flex', margin: '10px', opacity: open ? 1 : 0.5 }}>
           <i className="bi bi-search" />
         </span>
-        <input
+        <Input
           ref={inputRef}
           type="text"
           value={query}
@@ -107,14 +107,7 @@ export default function Search() {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => { setOpen(true); loadData(); }}
           onBlur={() => setTimeout(() => setOpen(false), 200)}
-          style={{
-            width: '100%',
-            height: '60px',
-            border: 'none',
-            outline: 'none',
-            fontSize: '16px',
-            background: 'transparent',
-          }}
+          className="h-[60px] rounded-none border-none bg-transparent text-base shadow-none focus-visible:ring-0 focus-visible:border-transparent px-0"
         />
       </div>
 
@@ -133,7 +126,7 @@ export default function Search() {
           <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
             {results.length === 0 ? (
               <li style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
-                {t.searchNoResults}
+                검색 결과가 없습니다.
               </li>
             ) : (
               results.map((r) => {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { t } from '@/i18n/translations';
+import { Button } from '@/components/ui/button';
 
 export default function Menu() {
   return (
@@ -22,17 +22,18 @@ export default function Menu() {
         </Link>
         <ul className="flex items-center gap-5 m-0 p-0">
           <li>
-            <small>
-              <a
-                href={t.linkToGitHub}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: 'var(--color-title)' }}
-              >
-                <i className="bi bi-github" style={{ marginRight: '3px' }} />
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              style={{ color: 'var(--color-title)' }}
+              className="gap-1.5 text-sm opacity-90 hover:opacity-100 hover:bg-white/10"
+            >
+              <a href={process.env.NEXT_PUBLIC_GITHUB_URL} target="_blank" rel="noopener noreferrer">
+                <i className="bi bi-github" />
                 GitHub
               </a>
-            </small>
+            </Button>
           </li>
         </ul>
       </div>

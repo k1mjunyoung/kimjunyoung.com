@@ -1,25 +1,28 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
-import { SITE_TITLE, SEO_DESC, SITE_URL, OG_IMAGE, FAVICON, ADSENSE_CLIENT } from '@/i18n/translations';
 import Menu from '@/components/Menu';
 import Footer from '@/components/Footer';
 import Analytics from '@/components/Analytics';
+import { Inter } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
-  description: SEO_DESC,
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
+  title: process.env.NEXT_PUBLIC_SITE_TITLE,
+  description: process.env.NEXT_PUBLIC_SEO_DESC,
   other: {
-    'google-adsense-account': ADSENSE_CLIENT,
+    'google-adsense-account': process.env.NEXT_PUBLIC_ADSENSE_CLIENT!,
   },
   icons: {
-    icon: FAVICON,
-    apple: FAVICON,
+    icon: process.env.NEXT_PUBLIC_FAVICON,
+    apple: process.env.NEXT_PUBLIC_FAVICON,
   },
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
-    images: [{ url: OG_IMAGE }],
+    images: [{ url: process.env.NEXT_PUBLIC_OG_IMAGE! }],
   },
   twitter: { card: 'summary' },
 };
@@ -30,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={cn("font-sans", inter.variable)}>
       <head>
         <link
           rel="stylesheet"

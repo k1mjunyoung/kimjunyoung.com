@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import type { Post } from '@/lib/posts';
-import { t } from '@/i18n/translations';
 
 interface PostNavProps {
   prev: Post | null;
@@ -43,7 +42,7 @@ export default function PostNav({ prev, next }: PostNavProps) {
       </div>
       <div style={{ textAlign: 'center', marginTop: '8px' }}>
         <small>
-          <Link href="/">{t.back}</Link>
+          <Link href="/">목록으로 돌아가기</Link>
         </small>
       </div>
     </>

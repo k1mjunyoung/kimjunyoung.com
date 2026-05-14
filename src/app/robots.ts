@@ -1,9 +1,8 @@
 import type { MetadataRoute } from 'next';
-import { SITE_URL } from '@/i18n/translations';
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: '*', allow: '/' },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`,
   };
 }

@@ -8,7 +8,6 @@ import PostNav from '@/components/PostNav';
 import Giscus from '@/components/Giscus';
 import AdSense from '@/components/AdSense';
 import '@/styles/article.css';
-import { t } from '@/i18n/translations';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -69,12 +68,12 @@ export default async function PostPage({ params }: Props) {
               {post.commit_url ? (
                 <a href={post.commit_url}>
                   <small>
-                    {t.postUpdatedBy} <time dateTime={post.date}>{dateStr}</time>
+                    업데이트 <time dateTime={post.date}>{dateStr}</time>
                   </small>
                 </a>
               ) : (
                 <small>
-                  {t.postUpdatedBy} <time dateTime={post.date}>{dateStr}</time>
+                  업데이트 <time dateTime={post.date}>{dateStr}</time>
                 </small>
               )}
             </div>
@@ -88,14 +87,14 @@ export default async function PostPage({ params }: Props) {
               <small>
                 {post.link && (
                   <>
-                    {t.link}:{' '}
+                    링크:{' '}
                     <a href={post.link} target="_blank" rel="noopener noreferrer">
                       {post.link}
                     </a>
                     <br />
                   </>
                 )}
-                {t.share}{' '}
+                공유{' '}
                 <a
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&hashtags=개발자준영&lang=ko&url=${encodeURIComponent(`https://www.kimjunyoung.com/post/${post.slug}`)}`}
                   target="_blank"

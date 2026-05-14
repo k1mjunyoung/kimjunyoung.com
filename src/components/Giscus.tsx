@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { GISCUS } from '@/i18n/translations';
 
 export default function Giscus() {
   const ref = useRef<HTMLDivElement>(null);
@@ -14,10 +13,10 @@ export default function Giscus() {
 
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
-    script.setAttribute('data-repo', GISCUS.repo);
-    script.setAttribute('data-repo-id', GISCUS.repoId);
-    script.setAttribute('data-category', GISCUS.category);
-    script.setAttribute('data-category-id', GISCUS.categoryId);
+    script.setAttribute('data-repo', process.env.NEXT_PUBLIC_GISCUS_REPO!);
+    script.setAttribute('data-repo-id', process.env.NEXT_PUBLIC_GISCUS_REPO_ID!);
+    script.setAttribute('data-category', process.env.NEXT_PUBLIC_GISCUS_CATEGORY!);
+    script.setAttribute('data-category-id', process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID!);
     script.setAttribute('data-mapping', 'pathname');
     script.setAttribute('data-strict', '0');
     script.setAttribute('data-reactions-enabled', '1');

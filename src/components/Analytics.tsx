@@ -1,7 +1,8 @@
 'use client';
 
 import Script from 'next/script';
-import { GA_ID } from '@/i18n/translations';
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID!;
 
 export default function Analytics() {
   return (

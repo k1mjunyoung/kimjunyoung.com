@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function NotFound() {
   return (
@@ -15,7 +16,9 @@ export default function NotFound() {
     >
       <h1>404</h1>
       <p>페이지를 찾을 수 없습니다.</p>
-      <Link href="/">목록으로 돌아가기</Link>
+      <Button asChild variant="link" style={{ color: 'var(--color-link)' }}>
+        <Link href="/">목록으로 돌아가기</Link>
+      </Button>
     </main>
   );
 }
