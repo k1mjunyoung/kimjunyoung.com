@@ -9,17 +9,8 @@ interface PostNavProps {
 export default function PostNav({ prev, next }: PostNavProps) {
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-          padding: '10px 0',
-          fontSize: '0.9rem',
-        }}
-      >
-        <div style={{ textAlign: 'left' }}>
+      <div className="flex w-full items-center justify-between py-[10px] text-[0.9rem]">
+        <div className="text-left">
           {prev && (
             <>
               &laquo;{' '}
@@ -29,7 +20,7 @@ export default function PostNav({ prev, next }: PostNavProps) {
             </>
           )}
         </div>
-        <div style={{ textAlign: 'right' }}>
+        <div className="text-right">
           {next && (
             <>
               <Link href={`/post/${next.slug}`}>
@@ -40,7 +31,7 @@ export default function PostNav({ prev, next }: PostNavProps) {
           )}
         </div>
       </div>
-      <div style={{ textAlign: 'center', marginTop: '8px' }}>
+      <div className="mt-2 text-center">
         <small>
           <Link href="/">목록으로 돌아가기</Link>
         </small>

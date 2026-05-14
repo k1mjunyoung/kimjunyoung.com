@@ -7,7 +7,6 @@ import JsonLd from '@/components/JsonLd';
 import PostNav from '@/components/PostNav';
 import Giscus from '@/components/Giscus';
 import AdSense from '@/components/AdSense';
-import '@/styles/article.css';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -39,42 +38,21 @@ export default async function PostPage({ params }: Props) {
   return (
     <>
       <JsonLd schema={articleSchema(post)} />
-      <div
-        style={{
-          minHeight: 'calc(100vh - 480px)',
-          backgroundColor: 'var(--color-background)',
-          paddingTop: '30px',
-          paddingBottom: '30px',
-        }}
-      >
-        <div
-          style={{
-            width: 'var(--container-prose)',
-            maxWidth: '90%',
-            margin: '0 auto',
-          }}
-        >
+      <div className="min-h-[calc(100vh-480px)] bg-background py-[30px]">
+        <div className="mx-auto w-[var(--container-prose)] max-w-[90%]">
           <article>
-            <h1
-              style={{
-                marginTop: '15px',
-                color: 'var(--color-theme)',
-                lineHeight: 1.25,
-                letterSpacing: '-0.025em',
-              }}
-              className="post-title"
-            >
+            <h1 className="mt-[15px] leading-tight tracking-tight text-theme">
               {post.title}
             </h1>
 
-            <div style={{ marginBottom: '16px' }}>
+            <div className="mb-4">
               <small>
                 업데이트 <time dateTime={post.date}>{dateStr}</time>
               </small>
             </div>
 
             <div
-              style={{ marginTop: '20px', marginBottom: '50px' }}
+              className="prose max-w-none mt-5 mb-[50px]"
               dangerouslySetInnerHTML={{ __html: html }}
             />
 

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,8 +9,6 @@
   --color-theme: #282c34;
   --color-theme-lighter: #3e4451;
   --color-theme-grey: #6b35c8;
-  --color-background: hsl(0 0% 94%);
-  --color-border: hsl(0 1% 77%);
   --color-text: hsl(0 0% 35%);
   --color-title: hsl(0 0% 94%);
   --color-link: #af87ff;
@@ -18,140 +17,7 @@
   --font-sans: "Pretendard", "Source Sans Pro", system-ui, sans-serif;
   --font-display: "Cafe24ProUp", var(--font-sans);
 
-  --container-prose: 900px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: hsl(220 5% 12%);
-    --color-border: hsl(0 0% 35%);
-    --color-text: hsl(40 10% 83%);
-    --color-title: hsl(40 10% 83%);
-    --color-link-hover: #b1b9f9;
-  }
-}
-
-/* Fonts */
-@font-face {
-  font-family: "Cafe24ProUp";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2507-1@1.0/Cafe24PROUP.woff2") format("woff2");
-  font-weight: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Pretendard";
-  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.woff2") format("woff2");
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-/* Base Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-@media (min-width: 38em) {
-  html {
-    font-size: 18px;
-  }
-}
-
-body {
-  color: var(--color-text);
-  background-color: var(--color-background);
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  color: var(--color-link);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-a:hover {
-  text-decoration: underline;
-  color: var(--color-link-hover);
-  text-decoration-color: var(--color-link-hover);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  line-height: 1.1;
-  letter-spacing: -0.025rem;
-  color: #1a191b;
-}
-
-@media (prefers-color-scheme: dark) {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: #ddd;
-  }
-}
-
-h1 { font-size: 2rem; }
-h2 { font-size: 1.6rem; }
-h3 { font-size: 1.3rem; }
-h4, h5, h6 { font-size: 1rem; }
-
-p { margin: 0 0 1rem; }
-img { max-width: 100%; }
-ul { list-style-type: none; }
-
-/* Layout */
-.prose-container {
-  width: var(--container-prose);
-  max-width: 90%;
-  margin: 0 auto;
-}
-
-/* Search result hover */
-.search-result-item {
-  transition: background-color 0.3s ease;
-}
-
-@media (prefers-color-scheme: dark) {
-  .search-result-item:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .search-result-item:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-}
-
-/* Prism code block wrapping */
-pre[class*="language-"],
-code[class*="language-"] {
-  white-space: pre-wrap !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  --container-prose: 768px;
 }
 
 @theme inline {
@@ -213,7 +79,7 @@ code[class*="language-"] {
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
+  --border: hsl(0 1% 77%);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.87 0 0);
@@ -230,6 +96,17 @@ code[class*="language-"] {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: hsl(220 5% 12%);
+    --foreground: hsl(40 10% 83%);
+    --border: hsl(0 0% 35%);
+    --color-text: hsl(40 10% 83%);
+    --color-title: hsl(40 10% 83%);
+    --color-link-hover: #b1b9f9;
+  }
 }
 
 .dark {
@@ -275,5 +152,37 @@ code[class*="language-"] {
   }
   html {
     @apply font-sans;
+  }
+}
+
+@font-face {
+  font-family: "Cafe24ProUp";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2507-1@1.0/Cafe24PROUP.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+.search-result-item {
+  transition: background-color 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .search-result-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .search-result-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }

@@ -32,7 +32,7 @@ async function buildIndex() {
   }
 
   const res = await fetch(
-    `${supabaseUrl}/rest/v1/post?published=eq.true&lang=eq.ko&select=title,slug,description,categories`,
+    `${supabaseUrl}/rest/v1/post?is_public=eq.true&select=title,slug,description,categories`,
     {
       headers: {
         apikey: supabaseKey,

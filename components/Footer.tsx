@@ -1,14 +1,7 @@
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer
-      style={{
-        minHeight: '80px',
-        backgroundColor: 'var(--color-background)',
-        color: 'var(--color-text)',
-      }}
-      className="flex items-center justify-center"
-    >
+    <footer className="flex min-h-20 items-center justify-center bg-background text-[--color-text]">
       <div className="text-center">
         <small>© {year}. kimjunyoung.com.</small>
       </div>

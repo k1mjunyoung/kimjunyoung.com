@@ -1,5 +1,6 @@
-import type { Post } from '@/lib/posts';
-import PostCard from './PostCard';
+import type { Post } from "@/lib/posts";
+import PostCard from "./PostCard";
+import { Separator } from "./ui/separator";
 
 interface PostListProps {
   posts: Post[];
@@ -10,10 +11,10 @@ export default function PostList({ posts }: PostListProps) {
     return <p>No posts found.</p>;
   }
   return (
-    <div>
+    <>
       {posts.map((post) => (
         <PostCard key={post.slug} post={post} />
       ))}
-    </div>
+    </>
   );
 }

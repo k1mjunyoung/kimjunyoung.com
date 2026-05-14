@@ -81,22 +81,15 @@ export default function Search() {
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="relative">
       <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          background: '#fff',
-          marginTop: '20px',
-          borderRadius: '4px',
-          overflow: 'hidden',
-          width: '100%',
-          opacity: open ? 1 : 0.5,
-          transition: '0.3s',
-          boxShadow: open ? '0 0 20px 1px rgba(0,0,0,0.1)' : 'none',
-        }}
+        className={`mt-5 flex w-full items-center overflow-hidden rounded-[4px] bg-white transition-all duration-300 ${
+          open
+            ? 'opacity-100 shadow-[0_0_20px_1px_rgba(0,0,0,0.1)]'
+            : 'opacity-50 shadow-none'
+        }`}
       >
-        <span style={{ display: 'flex', margin: '10px', opacity: open ? 1 : 0.5 }}>
+        <span className={`m-[10px] flex transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-50'}`}>
           <i className="bi bi-search" />
         </span>
         <Input
@@ -112,20 +105,10 @@ export default function Search() {
       </div>
 
       {open && query.trim() && (
-        <div
-          style={{
-            width: '100%',
-            backgroundColor: 'var(--color-background)',
-            zIndex: 9,
-            position: 'absolute',
-            top: '80px',
-            left: 0,
-            borderRadius: '4px',
-          }}
-        >
-          <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+        <div className="absolute left-0 top-20 z-[9] w-full rounded-[4px] bg-background">
+          <ul className="m-0 list-none p-0">
             {results.length === 0 ? (
-              <li style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
+              <li className="border-b border-[#ddd] p-[10px]">
                 검색 결과가 없습니다.
               </li>
             ) : (
@@ -137,20 +120,11 @@ export default function Search() {
                 return (
                   <li
                     key={r.item.url}
-                    className="search-result-item"
-                    style={{
-                      borderBottom: '1px solid #ddd',
-                      borderLeft: '1px solid #ddd',
-                      borderRight: '1px solid #ddd',
-                      padding: '10px',
-                    }}
+                    className="search-result-item border border-t-0 border-[#ddd] p-[10px]"
                   >
                     <a href={r.item.url}>{r.item.title}</a>{' '}
                     <small>
-                      <a
-                        href={r.item.url}
-                        style={{ fontSize: 'smaller', textDecoration: 'none' }}
-                      >
+                      <a href={r.item.url} className="text-[smaller] no-underline">
                         <span dangerouslySetInnerHTML={{ __html: desc }} />{' '}
                         {fr && <span dangerouslySetInnerHTML={{ __html: fr }} />}
                       </a>

@@ -27,8 +27,7 @@ export default function AdSense() {
       />
       <ins
         ref={insRef}
-        className="adsbygoogle"
-        style={{ display: 'block' }}
+        className="adsbygoogle block"
         data-ad-client={ADSENSE_CLIENT}
         data-ad-slot={ADSENSE_SLOT}
         data-ad-format="auto"
