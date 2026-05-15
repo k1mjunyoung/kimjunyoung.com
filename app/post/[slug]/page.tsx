@@ -1,12 +1,12 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import { getAllPosts, getPostBySlug, getPrevNext } from '@/lib/posts';
-import { renderMarkdown } from '@/lib/markdown';
-import { buildMetadata, articleSchema } from '@/lib/seo';
-import JsonLd from '@/components/JsonLd';
-import PostNav from '@/components/PostNav';
-import Giscus from '@/components/Giscus';
-import AdSense from '@/components/AdSense';
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { getAllPosts, getPostBySlug, getPrevNext } from "@/lib/posts";
+import { renderMarkdown } from "@/lib/markdown";
+import { buildMetadata, articleSchema } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import PostNav from "@/components/PostNav";
+import Giscus from "@/components/Giscus";
+import AdSense from "@/components/AdSense";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -33,15 +33,15 @@ export default async function PostPage({ params }: Props) {
 
   const html = await renderMarkdown(post.content);
   const { prev, next } = await getPrevNext(slug);
-  const dateStr = post.date ? post.date.slice(0, 10) : '';
+  const dateStr = post.date ? post.date.slice(0, 10) : "";
 
   return (
     <>
       <JsonLd schema={articleSchema(post)} />
-      <div className="min-h-[calc(100vh-480px)] bg-background py-[30px]">
-        <div className="mx-auto w-[var(--container-prose)] max-w-[90%]">
+      <div className="bg-background min-h-[calc(100vh-480px)] py-[30px]">
+        <div className="mx-auto w-full max-w-3xl px-4">
           <article>
-            <h1 className="mt-[15px] leading-tight tracking-tight text-theme">
+            <h1 className="text-theme mt-[15px] text-2xl font-bold leading-tight tracking-tight">
               {post.title}
             </h1>
 
@@ -52,13 +52,13 @@ export default async function PostPage({ params }: Props) {
             </div>
 
             <div
-              className="prose max-w-none mt-5 mb-[50px]"
+              className="prose mt-5 mb-[50px] max-w-none"
               dangerouslySetInnerHTML={{ __html: html }}
             />
 
             <p>
               <small>
-                공유{' '}
+                공유{" "}
                 <a
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&hashtags=개발자준영&lang=ko&url=${encodeURIComponent(`https://www.kimjunyoung.com/post/${post.slug}`)}`}
                   target="_blank"

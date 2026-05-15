@@ -17,7 +17,6 @@
   --font-sans: "Pretendard", "Source Sans Pro", system-ui, sans-serif;
   --font-display: "Cafe24ProUp", var(--font-sans);
 
-  --container-prose: 768px;
 }
 
 @theme inline {
@@ -153,6 +152,12 @@
   html {
     @apply font-sans;
   }
+  a {
+    color: var(--color-link);
+  }
+  a:hover {
+    color: var(--color-link-hover);
+  }
 }
 
 @font-face {
@@ -169,6 +174,13 @@
     format("woff2");
   font-weight: 100 900;
   font-display: swap;
+}
+
+.prose a {
+  color: var(--color-link);
+}
+.prose a:hover {
+  color: var(--color-link-hover);
 }
 
 .search-result-item {

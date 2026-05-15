@@ -1,7 +1,7 @@
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="flex min-h-20 items-center justify-center bg-background text-[--color-text]">
+    <footer className="bg-background flex min-h-20 items-center justify-center text-[--color-text] md:mx-auto md:max-w-3xl">
       <div className="text-center">
         <small>© {year}. kimjunyoung.com.</small>
       </div>

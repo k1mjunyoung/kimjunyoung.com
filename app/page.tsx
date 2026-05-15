@@ -10,7 +10,7 @@ export default async function IndexPage() {
     <>
       <JsonLd schema={websiteSchema()} />
       <Header />
-      <main className="bg-background min-h-[calc(100vh-280px)]">
+      <main className="bg-background min-h-[calc(100vh-280px)] md:mx-auto md:max-w-3xl md:border-s md:border-e">
         <PostList posts={posts} />
       </main>
     </>

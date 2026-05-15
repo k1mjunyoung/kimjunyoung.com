@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 export default function Menu() {
   return (
     <nav className="sticky top-0 z-10 w-full overflow-hidden bg-theme-lighter">
-      <div className="mx-auto flex h-20 w-[var(--container-prose)] max-w-[90%] items-center justify-between">
+      <div className="mx-auto flex h-20 w-full max-w-3xl items-center justify-between px-4 md:px-0">
         <Link href="/" className="flex items-center no-underline hover:no-underline text-title">
           <span className="font-display text-2xl font-bold">
             kimjunyoung
