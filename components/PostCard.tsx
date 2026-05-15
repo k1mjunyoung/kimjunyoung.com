@@ -40,7 +40,12 @@ export default function PostCard({ post }: PostCardProps) {
           </CardTitle>
         </CardHeader>
         <CardContent className="px-4">
-          <p>{post.description || extractPreview(post.content)}</p>
+          <p>
+            {
+              // post.description ||
+              extractPreview(post.content)
+            }
+          </p>
         </CardContent>
         <CardContent className="px-4">
           {contentImages.length > 0 && (

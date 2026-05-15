@@ -1,3 +1,4 @@
+import "@/styles/article.css";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllPosts, getPostBySlug, getPrevNext } from "@/lib/posts";

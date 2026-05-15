@@ -5,6 +5,7 @@ import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeStarryNight from "rehype-starry-night";
 import rehypeStringify from "rehype-stringify";
 
 const processor = unified()
@@ -12,6 +13,7 @@ const processor = unified()
   .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeRaw)
+  .use(rehypeStarryNight)
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, { behavior: "prepend" })
   .use(rehypeStringify, { allowDangerousHtml: true });
@@ -38,7 +40,8 @@ export function extractPreview(content: string, maxLength = 140): string {
 }
 
 export function extractContentImages(content: string, max = 4): string[] {
-  const mdMatches = [...content.matchAll(/!\[.*?\]\((.*?)\)/g)].map((m) => m[1]);
-  const htmlMatches = [...content.matchAll(/<img[^>]+src=["']([^"']+)["']/g)].map((m) => m[1]);
+  const stripped = content.replace(/```[\s\S]*?```/g, "").replace(/`[^`]*`/g, "");
+  const mdMatches = [...stripped.matchAll(/!\[.*?\]\((.*?)\)/g)].map((m) => m[1]);
+  const htmlMatches = [...stripped.matchAll(/<img[^>]+src=["']([^"']+)["']/g)].map((m) => m[1]);
   return [...mdMatches, ...htmlMatches].slice(0, max);
 }
