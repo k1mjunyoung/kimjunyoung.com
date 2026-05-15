@@ -1,0 +1,25 @@
+@import "@wooorm/starry-night/style/both";
+
+/* starry-night GitHub light 배경 */
+.prose pre {
+  background-color: #f6f8fa;
+  color: #1f2328;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+}
+
+.prose pre code {
+  background-color: transparent;
+  color: inherit;
+  white-space: pre-wrap;
+}
+
+/* starry-night GitHub dark 배경 */
+@media (prefers-color-scheme: dark) {
+  .prose pre {
+    background-color: #161b22;
+    color: #e6edf3;
+  }
+}
