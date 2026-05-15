@@ -3,6 +3,9 @@
 @import "shadcn/tailwind.css";
 @plugin "@tailwindcss/typography";
 
+@import "../styles/_variables.scss";
+@import "../styles/_keyframe-animations.scss";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
@@ -16,7 +19,6 @@
 
   --font-sans: "Pretendard", "Source Sans Pro", system-ui, sans-serif;
   --font-display: "Cafe24ProUp", var(--font-sans);
-
 }
 
 @theme inline {
