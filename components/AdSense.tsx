@@ -1,4 +1,10 @@
-'use client';
+"use client";
+
+declare global {
+  interface Window {
+    adsbygoogle: object[];
+  }
+}
 
 import { useEffect, useRef } from 'react';
 import Script from 'next/script';
@@ -12,8 +18,7 @@ export default function AdSense() {
   useEffect(() => {
     if (!insRef.current || insRef.current.offsetWidth === 0) return;
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {}
   }, []);
 
