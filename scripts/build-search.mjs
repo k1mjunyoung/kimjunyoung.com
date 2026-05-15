@@ -23,8 +23,8 @@ function loadEnv() {
 
 async function buildIndex() {
   const env = loadEnv();
-  const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
     console.error('[build-search] NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY 누락');
