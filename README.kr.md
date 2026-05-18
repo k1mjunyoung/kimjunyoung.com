@@ -38,11 +38,7 @@ GitHub 저장소를 Vercel에 연결하면 됩니다. Next.js를 자동으로 �
 
 ## 포스트
 
-모든 포스트는 `ko/_posts/*.md`에서 관리됩니다.
-
-front matter 필드: `lang`, `permalink`, `title`, `description`, `date`, `categories`, `domain`, `redirect_from`, `published`
-
-`published: false`인 포스트는 빌드 시 필터링됩니다.
+포스트는 런타임에 Supabase API를 통해 불러옵니다.
 
 ## 라이선스
 

@@ -38,11 +38,7 @@ Connect the GitHub repository to Vercel. No special build configuration is neede
 
 ## Posts
 
-All posts are maintained in `ko/_posts/*.md`.
-
-Front matter fields: `lang`, `permalink`, `title`, `description`, `date`, `categories`, `domain`, `redirect_from`, `published`
-
-Posts with `published: false` are filtered out at build time.
+Posts are fetched from Supabase via API at runtime.
 
 ## License
 
