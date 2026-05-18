@@ -2,65 +2,47 @@
 
 > [한국어 문서 (Korean)](README.kr.md)
 
-Simple and responsive website for remote work in Japan in Japanese and English.
+Korean personal blog built with Next.js 15 App Router.
 
-# Install & Run
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router) + TypeScript
+- **Styling**: TailwindCSS v4 (`@theme` CSS variables)
+- **Markdown**: `gray-matter` + `unified` pipeline (`rehype-starry-night` code highlighting)
+- **Search**: Fuse.js + `public/search-ko.json` (generated at prebuild)
+- **Deployment**: Vercel
+
+## Install & Run
 
 1. Clone this repository
 2. Install dependencies and run:
    ```bash
-   bundle install
-   bundle exec jekyll serve
+   npm install
+   npm run dev
    ```
 
-## Deploy to Cloudflare Pages
+3. Build for production:
+   ```bash
+   npm run build
+   ```
+   The prebuild step automatically generates `public/search-ko.json`.
 
-### Prerequisites
+4. Regenerate search index only:
+   ```bash
+   node scripts/build-search.mjs
+   ```
 
-- Cloudflare account
-- GitHub repository connected to Cloudflare Pages
+## Deploy to Vercel
 
-### Build Configuration
+Connect the GitHub repository to Vercel. No special build configuration is needed — Vercel detects Next.js automatically.
 
-Set the following in your Cloudflare Pages project settings:
+## Posts
 
-| Setting | Value |
-|---------|-------|
-| Build command | `jekyll build` |
-| Build output directory | `_site` |
-| Production branch | `main` |
+All posts are maintained in `ko/_posts/*.md`.
 
-### Environment Variables
+Front matter fields: `lang`, `permalink`, `title`, `description`, `date`, `categories`, `domain`, `redirect_from`, `published`
 
-Add this environment variable in Cloudflare Pages dashboard:
-
-| Variable | Value | Note |
-|----------|-------|------|
-| `RUBY_VERSION` | `3.4.4` | Must match `.ruby-version` file |
-
-**Important:** The `.ruby-version` file in this project specifies Ruby 3.4.4. Make sure the `RUBY_VERSION` environment variable matches this version.
-
-### Build Process
-
-Cloudflare Pages will:
-1. Install dependencies: `bundle install`
-2. Build the Jekyll site: `jekyll build`
-3. Deploy the `_site/` directory
-
-All posts are maintained manually in `en/_posts/`, `ja/_posts/`, and `ko/_posts/` directories.
-
-## Languages
-
-- Korean
-- Japanese
-- English
-
-## Contribute to translation
-
-Adding missing Japanese translation is much appreciated.
-
-- In file `/_data/translations.yml`
-- Add to the translation key the missing translation in `ja`
+Posts with `published: false` are filtered out at build time.
 
 ## License
 
