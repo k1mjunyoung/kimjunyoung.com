@@ -42,7 +42,7 @@ export default async function PostPage({ params }: Props) {
       <div className="bg-background min-h-[calc(100vh-480px)] py-[30px]">
         <div className="mx-auto w-full max-w-3xl px-4">
           <article>
-            <h1 className="text-theme mt-[15px] text-2xl font-bold leading-tight tracking-tight">
+            <h1 className="text-foreground mt-[15px] text-2xl leading-tight font-bold tracking-tight">
               {post.title}
             </h1>
 
@@ -53,7 +53,7 @@ export default async function PostPage({ params }: Props) {
             </div>
 
             <div
-              className="prose mt-5 mb-[50px] max-w-none"
+              className="prose dark:prose-invert mt-5 mb-[50px] max-w-none"
               dangerouslySetInnerHTML={{ __html: html }}
             />
 

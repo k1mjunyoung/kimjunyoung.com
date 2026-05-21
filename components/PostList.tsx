@@ -7,7 +7,7 @@ interface PostListProps {
 
 export default function PostList({ posts }: PostListProps) {
   if (posts.length === 0) {
-    return <p>No posts found.</p>;
+    return <p>포스트가 없습니다.</p>;
   }
   return (
     <div>

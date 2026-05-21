@@ -83,7 +83,7 @@ export default function Search() {
   return (
     <div className="relative">
       <div
-        className={`mt-5 flex w-full items-center overflow-hidden rounded-[4px] bg-white transition-all duration-300 ${
+        className={`mt-5 flex w-full items-center overflow-hidden rounded-[4px] bg-card dark:bg-accent transition-all duration-300 ${
           open
             ? 'opacity-100 shadow-[0_0_20px_1px_rgba(0,0,0,0.1)]'
             : 'opacity-50 shadow-none'
@@ -108,7 +108,7 @@ export default function Search() {
         <div className="absolute left-0 top-20 z-[9] w-full rounded-[4px] bg-background">
           <ul className="m-0 list-none p-0">
             {results.length === 0 ? (
-              <li className="border-b border-[#ddd] p-[10px]">
+              <li className="border-b border-border p-[10px]">
                 검색 결과가 없습니다.
               </li>
             ) : (
@@ -120,7 +120,7 @@ export default function Search() {
                 return (
                   <li
                     key={r.item.url}
-                    className="search-result-item border border-t-0 border-[#ddd] p-[10px]"
+                    className="search-result-item border border-t-0 border-border p-[10px]"
                   >
                     <a href={r.item.url}>{r.item.title}</a>{' '}
                     <small>

@@ -17,9 +17,7 @@
 }
 
 /* starry-night GitHub dark 배경 */
-@media (prefers-color-scheme: dark) {
-  .prose pre {
-    background-color: #161b22;
-    color: #e6edf3;
-  }
+.dark .prose pre {
+  background-color: #161b22;
+  color: #e6edf3;
 }

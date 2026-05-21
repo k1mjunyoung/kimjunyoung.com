@@ -44,8 +44,8 @@ export async function getPrevNext(
   const idx = posts.findIndex((p) => p.slug === slug);
   if (idx === -1) return { prev: null, next: null };
 
-  const prevIdx = idx === 0 ? posts.length - 1 : idx - 1;
-  const nextIdx = idx === posts.length - 1 ? 0 : idx + 1;
-
-  return { prev: posts[prevIdx], next: posts[nextIdx] };
+  return {
+    prev: idx > 0 ? posts[idx - 1] : null,
+    next: idx < posts.length - 1 ? posts[idx + 1] : null,
+  };
 }

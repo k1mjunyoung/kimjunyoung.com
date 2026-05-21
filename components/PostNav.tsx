@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Post } from '@/lib/posts';
+import { cleanTitle } from '@/lib/utils';
 
 interface PostNavProps {
   prev: Post | null;
@@ -15,7 +16,7 @@ export default function PostNav({ prev, next }: PostNavProps) {
             <>
               &laquo;{' '}
               <Link href={`/post/${prev.slug}`}>
-                {prev.title.replace('株式会社', '')}
+                {cleanTitle(prev.title)}
               </Link>
             </>
           )}
@@ -24,7 +25,7 @@ export default function PostNav({ prev, next }: PostNavProps) {
           {next && (
             <>
               <Link href={`/post/${next.slug}`}>
-                {next.title.replace('株式会社', '')}
+                {cleanTitle(next.title)}
               </Link>{' '}
               &raquo;
             </>

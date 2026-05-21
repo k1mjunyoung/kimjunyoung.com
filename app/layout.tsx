@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import Menu from "@/components/Menu";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+import Providers from "@/components/Providers";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={cn("font-sans", inter.variable)}>
+    <html lang="ko" className={cn("font-sans", inter.variable)} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -41,10 +42,12 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Analytics />
-        <Menu />
-        {children}
-        <Footer />
+        <Providers>
+          <Analytics />
+          <Menu />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

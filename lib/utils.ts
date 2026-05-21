@@ -5,6 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function cleanTitle(title: string): string {
+  return title.replace('株式会社', '').trim();
+}
+
 export function formatDate(dateStr: string): string {
   if (!dateStr) return "";
   const date = new Date(dateStr);

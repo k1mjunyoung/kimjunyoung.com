@@ -8,7 +8,7 @@ export default function Giscus() {
   useEffect(() => {
     if (!ref.current) return;
 
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = document.documentElement.classList.contains('dark');
     const theme = isDark ? 'catppuccin_mocha' : 'catppuccin_latte';
 
     const script = document.createElement('script');
