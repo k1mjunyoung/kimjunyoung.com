@@ -1,5 +1,7 @@
 # Jekyll → Next.js 15 마이그레이션 계획
 
+> **보관용 문서.** 2026-05 시점의 기록이다. 이후 `src/` 구조가 `client/`로 이동했고, 포스트 소스는 `ko/_posts`에서 Supabase로, 코드 하이라이트는 `rehype-prism-plus`에서 `rehype-starry-night`로 바뀌었다. 현재 구조는 [CLAUDE.md](../CLAUDE.md), 진행 중인 작업은 [spring-migration.md](spring-migration.md)를 참고한다.
+
 ## 상태: 구현 완료 (2026-05-14)
 
 ---

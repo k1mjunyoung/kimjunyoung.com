@@ -1,5 +1,7 @@
 # Jekyll → Next.js 마이그레이션
 
+> **보관용 문서.** 2026-05 시점의 기록이다. 아래 "현재 구조"와 "다음 작업"은 당시 기준이며 지금과 다르다. 현재 구조는 [CLAUDE.md](../CLAUDE.md), 진행 중인 작업은 [spring-migration.md](spring-migration.md)를 참고한다.
+
 ## 현황 (2026-05-14 완료)
 
 Jekyll 기반 블로그를 Next.js 15 + Tailwind v4로 마이그레이션 완료.
