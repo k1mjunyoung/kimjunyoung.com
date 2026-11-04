@@ -82,7 +82,7 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const postsDir = path.join(ROOT, 'ko', '_posts');
+const postsDir = path.join(ROOT, '..', 'ko', '_posts');
 if (!fs.existsSync(postsDir)) {
   console.error(`❌ 포스트 디렉토리 없음: ${postsDir}`);
   process.exit(1);
