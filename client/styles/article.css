@@ -1,23 +1,323 @@
-@import "@wooorm/starry-night/style/both";
+/*
+ * 포스트 본문 스타일 (app/post/[slug]에서만 import)
+ * 색은 globals.css 토큰(--foreground, --muted-foreground, --muted, --border, --brand)을 쓴다.
+ * 문법 색은 starry-night 클래스(pl-*)를 사이트 톤(따뜻한 무채색 + 버밀리언)에 맞춰 다시 칠한다.
+ * 코드 블록 틀(.code-block, .code-head, .code-copy)은 lib/markdown.ts의 rehypeArticle이 만든다.
+ */
 
-/* starry-night GitHub light 배경 */
-.prose pre {
-  background-color: #f6f8fa;
-  color: #1f2328;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  overflow-x: hidden;
+.article {
+  --code-bg: #f4f3f1;
+  --sn-comment: #a8a29e;
+  --sn-keyword: #c2410c;
+  --sn-entity: #6d28d9;
+  --sn-constant: #0369a1;
+  --sn-string: #3f6212;
+  --sn-variable: #b45309;
+  --sn-tag: #be123c;
+  --sn-plain: #292524;
+
+  font-size: 17px;
+  line-height: 1.85;
+  letter-spacing: -0.003em;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
 }
 
-.prose pre code {
-  background-color: transparent;
+.dark .article {
+  --code-bg: #161617;
+  --sn-comment: #6b6b66;
+  --sn-keyword: #ff8a5b;
+  --sn-entity: #c4a7ff;
+  --sn-constant: #7dd3fc;
+  --sn-string: #b5d68a;
+  --sn-variable: #f5c06f;
+  --sn-tag: #f78c9c;
+  --sn-plain: #dcdcda;
+}
+
+.article > :first-child {
+  margin-top: 0;
+}
+
+/* 문단, 목록 */
+.article p,
+.article ul,
+.article ol,
+.article blockquote,
+.article table {
+  margin: 0 0 1.4em;
+}
+
+.article ul,
+.article ol {
+  padding-inline-start: 1.3em;
+}
+.article li {
+  margin: 0.35em 0;
+  padding-inline-start: 0.2em;
+}
+.article li::marker {
+  color: var(--muted-foreground);
+}
+.article ol > li::marker {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.article li > ul,
+.article li > ol {
+  margin: 0.35em 0 0;
+}
+
+.article strong {
+  font-weight: 700;
+}
+
+/* 제목: 위 여백을 크게, sticky 헤더에 가리지 않도록 scroll-margin */
+.article h2,
+.article h3,
+.article h4 {
+  position: relative;
+  scroll-margin-top: 88px;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.article h2 {
+  margin: 3.2em 0 0.9em;
+  font-size: 1.5rem;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+.article h3 {
+  margin: 2.4em 0 0.7em;
+  font-size: 1.2rem;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+}
+.article h4 {
+  margin: 2em 0 0.6em;
+  font-size: 1.02rem;
+}
+
+/* rehype-autolink-headings가 앞에 붙인 앵커: 여백에 # 표시 */
+.article h2 > a[aria-hidden],
+.article h3 > a[aria-hidden],
+.article h4 > a[aria-hidden] {
+  position: absolute;
+  inset-inline-start: -1.1em;
+  width: 1em;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.article h2 > a[aria-hidden]::before,
+.article h3 > a[aria-hidden]::before,
+.article h4 > a[aria-hidden]::before {
+  content: "#";
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+.article h2:hover > a[aria-hidden],
+.article h3:hover > a[aria-hidden],
+.article h4:hover > a[aria-hidden] {
+  opacity: 1;
+}
+.article h2 > a[aria-hidden]:hover,
+.article h3 > a[aria-hidden]:hover,
+.article h4 > a[aria-hidden]:hover {
+  color: var(--brand);
+}
+
+/* 링크 */
+.article a:not([aria-hidden]) {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--brand) 45%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+.article a:not([aria-hidden]):hover {
+  color: var(--brand);
+  text-decoration-color: var(--brand);
+}
+
+/* 인용 */
+.article blockquote {
+  padding: 0.1em 0 0.1em 1.1em;
+  border-inline-start: 2px solid var(--brand);
+  color: var(--muted-foreground);
+}
+.article blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.article hr {
+  margin: 3em 0;
+  border: 0;
+  text-align: center;
+}
+.article hr::after {
+  content: "· · ·";
+  color: var(--muted-foreground);
+  letter-spacing: 0.6em;
+}
+
+/* 이미지 */
+.article img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2em auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+/* 표 */
+.article table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+.article th,
+.article td {
+  padding: 0.55em 0.9em;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  white-space: nowrap;
+}
+.article th {
+  font-weight: 600;
+  color: var(--muted-foreground);
+  font-size: 0.92em;
+}
+
+/* 인라인 코드 */
+.article :not(pre) > code {
+  padding: 0.12em 0.4em;
+  border-radius: 4px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
+}
+
+/* 코드 블록 */
+.article .code-block {
+  margin: 1.8em 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--code-bg);
+}
+.article .code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 34px;
+  padding: 0 8px 0 14px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-foreground);
+  text-transform: lowercase;
+}
+.article .code-copy {
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 5px;
+  font: inherit;
+  color: var(--muted-foreground);
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, background-color 0.15s;
+}
+.article .code-block:hover .code-copy,
+.article .code-copy:focus-visible,
+.article .code-copy[data-done] {
+  opacity: 1;
+}
+.article .code-copy:hover {
+  color: var(--foreground);
+  background: var(--muted);
+}
+.article .code-copy[data-done] {
+  color: var(--brand);
+}
+@media (hover: none) {
+  .article .code-copy {
+    opacity: 1;
+  }
+}
+
+.article pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--sn-plain);
+  tab-size: 2;
+  overflow-wrap: normal;
+}
+.article pre code {
+  font: inherit;
+  white-space: pre;
+}
+
+/* 문법 색 (starry-night) */
+.article .pl-c {
+  color: var(--sn-comment);
+  font-style: italic;
+}
+.article .pl-k {
+  color: var(--sn-keyword);
+}
+.article .pl-e,
+.article .pl-en {
+  color: var(--sn-entity);
+}
+.article .pl-c1,
+.article .pl-s .pl-v {
+  color: var(--sn-constant);
+}
+.article .pl-s,
+.article .pl-pds,
+.article .pl-sr {
+  color: var(--sn-string);
+}
+.article .pl-v,
+.article .pl-smw {
+  color: var(--sn-variable);
+}
+.article .pl-ent {
+  color: var(--sn-tag);
+}
+.article .pl-smi,
+.article .pl-s .pl-s1 {
   color: inherit;
-  white-space: pre-wrap;
 }
-
-/* starry-night GitHub dark 배경 */
-.dark .prose pre {
-  background-color: #161b22;
-  color: #e6edf3;
+.article .pl-mh,
+.article .pl-ms {
+  font-weight: 700;
+  color: var(--sn-keyword);
+}
+.article .pl-mi {
+  font-style: italic;
+}
+.article .pl-mb {
+  font-weight: 700;
+}
+.article .pl-mi1 {
+  color: var(--sn-string);
+}
+.article .pl-md {
+  color: var(--sn-tag);
 }

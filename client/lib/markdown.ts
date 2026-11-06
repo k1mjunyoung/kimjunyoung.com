@@ -8,6 +8,84 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeStarryNight from "rehype-starry-night";
 import rehypeStringify from "rehype-stringify";
 
+export interface Heading {
+  id: string;
+  text: string;
+  depth: 2 | 3;
+}
+
+// rehype 트리 최소 타입 (hast)
+interface HNode {
+  type: string;
+  tagName?: string;
+  value?: string;
+  properties?: Record<string, unknown>;
+  children?: HNode[];
+}
+
+const el = (
+  tagName: string,
+  properties: Record<string, unknown>,
+  children: HNode[],
+): HNode => ({ type: "element", tagName, properties, children });
+
+function textOf(node: HNode): string {
+  if (node.type === "text") return node.value ?? "";
+  return (node.children ?? []).map(textOf).join("");
+}
+
+/**
+ * 1. h2/h3 목록을 file.data.headings에 모은다 (rehype-slug 이후에 실행)
+ * 2. <pre><code>를 언어 라벨 + 복사 버튼이 있는 .code-block으로 감싼다
+ */
+function rehypeArticle() {
+  return (tree: HNode, file: { data: Record<string, unknown> }) => {
+    const headings: Heading[] = [];
+
+    function walk(node: HNode) {
+      const children = node.children;
+      if (!children) return;
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if (child.type !== "element") continue;
+
+        if ((child.tagName === "h2" || child.tagName === "h3") && child.properties?.id) {
+          const text = textOf(child).trim();
+          if (text) {
+            headings.push({
+              id: String(child.properties.id),
+              text,
+              depth: child.tagName === "h2" ? 2 : 3,
+            });
+          }
+        }
+
+        const code = child.tagName === "pre" ? child.children?.[0] : undefined;
+        if (code?.type === "element" && code.tagName === "code") {
+          const classes = (code.properties?.className as string[] | undefined) ?? [];
+          const lang =
+            classes.find((c) => c.startsWith("language-"))?.slice("language-".length) ?? "text";
+          children[i] = el("div", { className: ["code-block"] }, [
+            el("div", { className: ["code-head"] }, [
+              el("span", {}, [{ type: "text", value: lang }]),
+              el("button", { type: "button", className: ["code-copy"], dataCopy: "" }, [
+                { type: "text", value: "복사" },
+              ]),
+            ]),
+            child,
+          ]);
+          continue;
+        }
+
+        walk(child);
+      }
+    }
+
+    walk(tree);
+    file.data.headings = headings;
+  };
+}
+
 const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
@@ -16,10 +94,16 @@ const processor = unified()
   .use(rehypeStarryNight)
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, { behavior: "prepend" })
+  .use(rehypeArticle)
   .use(rehypeStringify, { allowDangerousHtml: true });
 
-export async function renderMarkdown(md: string): Promise<string> {
-  return String(await processor.process(md));
+/** 포스트 본문 HTML과 목차용 제목 목록 */
+export async function renderArticle(md: string): Promise<{ html: string; headings: Heading[] }> {
+  const file = await processor.process(md);
+  return {
+    html: String(file),
+    headings: (file.data.headings as Heading[] | undefined) ?? [],
+  };
 }
 
 export function extractPreview(content: string, maxLength = 140): string {
