@@ -10,7 +10,6 @@
 client/    # Next.js 15 프론트엔드
 server/    # Spring Boot 백엔드 (Gradle)
 supabase/  # DB 마이그레이션
-docs/      # 계획 및 메모
 ```
 
 ## 기술 스택
@@ -69,7 +68,7 @@ GitHub 저장소를 Vercel에 연결하고 **Root Directory**를 `client`로 지
 
 ## 포스트
 
-포스트는 런타임에 Supabase를 통해 불러옵니다. 포스트 조회를 Spring Boot API 경유로 바꾸는 작업이 진행 중입니다. ([docs/spring-migration.md](docs/spring-migration.md) 참고)
+포스트는 런타임에 Supabase를 통해 불러옵니다. 포스트 조회를 Spring Boot API 경유로 바꾸는 작업이 진행 중입니다.
 
 ## 라이선스
 

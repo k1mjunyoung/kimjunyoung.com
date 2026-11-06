@@ -10,7 +10,6 @@ Korean personal blog. A monorepo with a Next.js frontend and a Spring Boot backe
 client/    # Next.js 15 frontend
 server/    # Spring Boot backend (Gradle)
 supabase/  # Database migrations
-docs/      # Plans and notes
 ```
 
 ## Tech Stack
@@ -69,7 +68,7 @@ Connect the GitHub repository to Vercel and set **Root Directory** to `client`. 
 
 ## Posts
 
-Posts are fetched from Supabase at runtime. Moving post access behind the Spring Boot API is in progress (see [docs/spring-migration.md](docs/spring-migration.md)).
+Posts are fetched from Supabase at runtime. Moving post access behind the Spring Boot API is in progress.
 
 ## License
 

@@ -8,7 +8,6 @@ This file provides guidance to Claude Code when working with code in this reposi
 client/    # Next.js 15 프론트엔드 (모든 npm 명령은 여기서 실행)
 server/    # Spring Boot 백엔드 (Gradle, 이전 작업 진행 중)
 supabase/  # DB 마이그레이션 SQL
-docs/      # 계획, 이슈 문서 (plan.md, issue.md)
 ko/        # 예전 마크다운 포스트 원본 (현재 코드에서는 사용하지 않음)
 ```
 
