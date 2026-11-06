@@ -20,7 +20,7 @@ supabase/  # DB 마이그레이션
 - **스타일**: TailwindCSS v4 (`@theme` CSS 변수)
 - **마크다운**: `gray-matter` + `unified` 파이프라인 (`rehype-starry-night` 코드 하이라이트)
 - **데이터**: Supabase
-- **검색**: Fuse.js + `public/search-ko.json` (prebuild 시 자동 생성)
+- **검색**: `⌘K` / `/` 검색 팔레트 + `public/search-ko.json` (prebuild 시 자동 생성)
 - **배포**: Vercel
 
 ### server
