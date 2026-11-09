@@ -37,15 +37,16 @@ export async function getPostBySlug(slug: string): Promise<Post | undefined> {
   return data ?? undefined;
 }
 
-export async function getPrevNext(
+/** 목록은 최신순이라 idx-1이 더 최신 글, idx+1이 더 오래된 글 */
+export async function getAdjacentPosts(
   slug: string,
-): Promise<{ prev: Post | null; next: Post | null }> {
+): Promise<{ newer: Post | null; older: Post | null }> {
   const posts = await fetchAllPosts();
   const idx = posts.findIndex((p) => p.slug === slug);
-  if (idx === -1) return { prev: null, next: null };
+  if (idx === -1) return { newer: null, older: null };
 
   return {
-    prev: idx > 0 ? posts[idx - 1] : null,
-    next: idx < posts.length - 1 ? posts[idx + 1] : null,
+    newer: idx > 0 ? posts[idx - 1] : null,
+    older: idx < posts.length - 1 ? posts[idx + 1] : null,
   };
 }

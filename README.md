@@ -20,7 +20,7 @@ supabase/  # Database migrations
 - **Styling**: TailwindCSS v4 (`@theme` CSS variables)
 - **Markdown**: `gray-matter` + `unified` pipeline (`rehype-starry-night` code highlighting)
 - **Data**: Supabase
-- **Search**: Fuse.js + `public/search-ko.json` (generated at prebuild)
+- **Search**: `⌘K` / `/` search palette over `public/search-ko.json` (generated at prebuild)
 - **Deployment**: Vercel
 
 ### server

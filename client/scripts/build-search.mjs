@@ -21,6 +21,24 @@ function loadEnv() {
   return env;
 }
 
+// lib/post-meta.ts, lib/markdown.ts의 extractPreview와 같은 규칙
+const LEGACY_TAGS = new Set(['full_remote', 'ja_required']);
+
+function preview(content, maxLength) {
+  const stripped = content
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`[^`]*`/g, '')
+    .replace(/!\[.*?\]\(.*?\)/g, '')
+    .replace(/\[([^\]]+)\]\(.*?\)/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, '$1')
+    .replace(/^\s*[-*>]\s+/gm, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return stripped.length > maxLength ? stripped.slice(0, maxLength) + '…' : stripped;
+}
+
 async function buildIndex() {
   const env = loadEnv();
   const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -32,7 +50,7 @@ async function buildIndex() {
   }
 
   const res = await fetch(
-    `${supabaseUrl}/rest/v1/post?is_public=eq.true&select=title,slug,description,categories`,
+    `${supabaseUrl}/rest/v1/post?is_public=eq.true&select=title,slug,description,categories,date,content&order=date.desc`,
     {
       headers: {
         apikey: supabaseKey,
@@ -48,16 +66,14 @@ async function buildIndex() {
 
   const posts = await res.json();
 
-  return posts.map((post) => {
-    const categories = post.categories ?? [];
-    return {
-      title: post.title ?? '',
-      url: `/post/${post.slug}`,
-      description: post.description ?? '',
-      full_remote: categories.includes('full_remote') ? '풀 리모트 👌' : '',
-      ja_required: categories.includes('ja_required') ? '일본어 필요' : '',
-    };
-  });
+  // 헤더 검색 팔레트(components/SearchPalette.tsx)가 읽는 형식
+  return posts.map((post) => ({
+    title: post.title ?? '',
+    slug: post.slug,
+    summary: post.description?.trim() || preview(post.content ?? '', 120),
+    date: (post.date ?? '').slice(0, 10),
+    tags: (post.categories ?? []).filter((c) => !LEGACY_TAGS.has(c)),
+  }));
 }
 
 const publicDir = path.join(ROOT, 'public');
@@ -66,7 +82,7 @@ fs.mkdirSync(publicDir, { recursive: true });
 const koIndex = await buildIndex();
 fs.writeFileSync(
   path.join(publicDir, 'search-ko.json'),
-  JSON.stringify(koIndex, null, 2),
+  JSON.stringify(koIndex),
   'utf-8',
 );
 

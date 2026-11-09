@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import Menu from "@/components/Menu";
-import Footer from "@/components/Footer";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import Analytics from "@/components/Analytics";
 import Providers from "@/components/Providers";
-import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { JetBrains_Mono } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+// 메타 정보(날짜, 태그, 로고)와 코드용
+const mono = JetBrains_Mono({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
@@ -34,7 +38,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={cn("font-sans", inter.variable)} suppressHydrationWarning>
+    <html
+      lang="ko"
+      className={mono.variable}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <head>
         <link
           rel="stylesheet"
@@ -44,9 +53,9 @@ export default function RootLayout({
       <body>
         <Providers>
           <Analytics />
-          <Menu />
+          <SiteHeader />
           {children}
-          <Footer />
+          <SiteFooter />
         </Providers>
       </body>
     </html>

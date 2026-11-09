@@ -14,9 +14,16 @@ const ADSENSE_SLOT = process.env.NEXT_PUBLIC_ADSENSE_SLOT!;
 
 export default function AdSense() {
   const insRef = useRef<HTMLModElement>(null);
+  // 개발 모드 StrictMode는 effect를 두 번 실행한다. push가 두 번 쌓이면 스크립트가
+  // 두 번째 push에서 "빈 ins가 없다"는 TagError를 비동기로 던지므로 한 번만 보낸다.
+  const pushed = useRef(false);
 
   useEffect(() => {
-    if (!insRef.current || insRef.current.offsetWidth === 0) return;
+    const ins = insRef.current;
+    if (!ins || pushed.current || ins.offsetWidth === 0) return;
+    // 이미 AdSense가 처리한 자리면 건너뛴다
+    if (ins.hasAttribute('data-adsbygoogle-status')) return;
+    pushed.current = true;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {}
