@@ -1,9 +1,19 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import { postHref, toSummary, type PostSummary } from "@/lib/post-meta";
 import { websiteSchema } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import PostMeta from "@/components/PostMeta";
+
+const githubUrl = process.env.NEXT_PUBLIC_GITHUB_URL;
+const githubUser = githubUrl?.replace(/\/+$/, "").split("/").pop();
+const email = process.env.NEXT_PUBLIC_EMAIL;
+
+const profileLinks = [
+  githubUrl && { label: "GitHub", href: githubUrl, icon: "bi-github", external: true },
+  email && { label: "Email", href: `mailto:${email}`, icon: "bi-envelope", external: false },
+].filter((l): l is { label: string; href: string; icon: string; external: boolean } => !!l);
 
 /**
  * 메인
@@ -24,16 +34,44 @@ export default async function IndexPage() {
     <>
       <JsonLd schema={websiteSchema()} />
       <main className="mx-auto max-w-[880px] px-5">
-        {/* 소개 */}
-        <section className="pt-16 pb-14 sm:ps-[96px]">
-          <h1 className="m-0 text-[clamp(1.6rem,1.2rem+1.6vw,2.25rem)] leading-[1.25] font-bold tracking-[-0.03em] text-balance">
-            만들고, 막히고, 푼 것을 기록합니다.
-          </h1>
-          <p className="text-muted-foreground m-0 mt-4 max-w-[34em] text-[15px] leading-relaxed">
-            백엔드 개발자 <span className="text-foreground font-medium">김준영</span>의 기술
-            이야기와 일상, 회고. 지금까지{" "}
-            <span className="text-foreground font-mono">{posts.length}</span>편.
-          </p>
+        {/* 프로필 */}
+        <section className="pt-14 pb-10 sm:ps-[96px]">
+          <div className="flex items-center gap-4">
+            {githubUser && (
+              <Image
+                src={`https://github.com/${githubUser}.png?size=160`}
+                alt=""
+                width={72}
+                height={72}
+                priority
+                className="bg-muted size-[72px] shrink-0 rounded-full border object-cover"
+              />
+            )}
+            <div className="min-w-0">
+              <h1 className="m-0 text-xl leading-tight font-bold tracking-[-0.02em]">김준영</h1>
+              {githubUser && (
+                <p className="text-muted-foreground m-0 mt-0.5 font-mono text-sm">@{githubUser}</p>
+              )}
+              <p className="text-muted-foreground m-0 mt-1 text-sm">
+                백엔드 개발자 · 지금까지{" "}
+                <span className="text-foreground font-mono">{posts.length}</span>편
+              </p>
+            </div>
+          </div>
+          <ul className="m-0 mt-5 flex list-none flex-wrap gap-x-5 gap-y-2 p-0 text-sm">
+            {profileLinks.map((l) => (
+              <li key={l.label}>
+                <a
+                  href={l.href}
+                  {...(l.external && { target: "_blank", rel: "noopener noreferrer" })}
+                  className="hover:text-brand inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <i className={`bi ${l.icon}`} aria-hidden />
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* 최신 글 */}
