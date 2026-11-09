@@ -259,17 +259,17 @@
 .article pre {
   margin: 0;
   padding: 16px 18px;
-  overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 13.5px;
   line-height: 1.7;
   color: var(--sn-plain);
   tab-size: 2;
-  overflow-wrap: normal;
 }
+/* 가로 스크롤 대신 자동 줄바꿈. 긴 토큰(URL 등)은 아무 데서나 끊는다 */
 .article pre code {
   font: inherit;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 /* 문법 색 (starry-night) */
