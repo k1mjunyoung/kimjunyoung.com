@@ -51,6 +51,7 @@ node scripts/build-search.mjs    # 검색 인덱스만 재생성
 ## 환경변수
 
 - `client/.env.local` (커밋 금지). 항목은 `client/.env.example` 참고
+- `USE_SUPABASE`: 포스트 데이터 소스 (`false`면 server API, `true`면 Supabase 레거시). 빌드 때 정해지므로 바꾸면 다시 배포
 - `API_URL`: server API 주소 (로컬 `http://localhost:8080`). 빌드와 서버 렌더링에서만 쓰므로 `NEXT_PUBLIC_`가 아니다
 - 나머지는 `NEXT_PUBLIC_*`: 사이트 메타, GA, AdSense, Giscus, (이전 스크립트용) Supabase URL과 anon key
 - `scripts/build-search.mjs`는 `.env.local`이 없으면 `process.env`에서 읽는다 (Vercel 빌드)
@@ -60,8 +61,14 @@ node scripts/build-search.mjs    # 검색 인덱스만 재생성
 
 ko 단일 언어 블로그. 포스트는 server API에서 읽는다.
 
-### 포스트 처리 (`client/lib/posts.ts`, 타입은 `client/types/post.ts`)
+### 포스트 처리 (`client/lib/posts/`, 타입은 `client/types/post.ts`)
 
+- `USE_SUPABASE`로 데이터 소스를 고른다. `false`(기본): `lib/posts/server.ts`(Spring API), `true`: `lib/posts/supabase.ts`(레거시, Supabase 직접 조회 결과를 새 타입으로 변환). `true`/`false`가 아닌 값은 에러
+- 두 구현 모두 `PostsSource`(`lib/posts/types.ts`)를 `satisfies`로 맞춘다. 페이지는 `@/lib/posts`(`index.ts`)만 import하고 새 타입만 안다
+- `scripts/build-search.mjs`도 같은 `USE_SUPABASE`로 분기한다
+- 레거시(`supabase.ts`, 분기, `@supabase/supabase-js`, `NEXT_PUBLIC_SUPABASE_*`)는 Spring 운영이 안정되면 함께 지운다
+
+server 구현 기준:
 - `getAllPosts` → `GET /api/posts` (`PostListItem[]`: 요약형, `content` 없음. `summary`와 `readMinutes`는 서버가 계산)
 - `getPostBySlug` → `GET /api/posts/{slug}` (`Post`: 본문 포함, 404면 `undefined`)
 - `getAdjacentPosts` → `GET /api/posts/{slug}/adjacent` (`{ newer, older }`)
