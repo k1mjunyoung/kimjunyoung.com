@@ -9,7 +9,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.5.2",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/language-data": "^6.5.2",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.15",
     "@floating-ui/react": "^0.27.19",
+    "@lezer/highlight": "^1.2.5",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@radix-ui/react-popover": "^1.1.15",
     "@supabase/supabase-js": "^2.105.4",
@@ -26,6 +32,7 @@
     "@tiptap/pm": "^3.23.4",
     "@tiptap/react": "^3.23.4",
     "@tiptap/starter-kit": "^3.23.4",
+    "@uiw/react-codemirror": "^4.25.12",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "lodash.throttle": "^4.1.1",
