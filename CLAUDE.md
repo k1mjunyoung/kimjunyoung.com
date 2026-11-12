@@ -53,6 +53,7 @@ node scripts/build-search.mjs    # 검색 인덱스만 재생성
 - `client/.env.local` (커밋 금지). 항목은 `client/.env.example` 참고
 - `USE_SUPABASE`: 포스트 데이터 소스 (`false`면 server API, `true`면 Supabase 레거시). 빌드 때 정해지므로 바꾸면 다시 배포
 - `API_URL`: server API 주소 (로컬 `http://localhost:8080`). 빌드와 서버 렌더링에서만 쓰므로 `NEXT_PUBLIC_`가 아니다
+- `WRITE_PASSWORD`: `/write` 접근 암호 (없으면 글 작성 꺼짐). `ADMIN_API_TOKEN`: server 쓰기 API 호출 토큰 (server `.env`와 같은 값). 둘 다 서버 전용
 - 나머지는 `NEXT_PUBLIC_*`: 사이트 메타, GA, AdSense, Giscus, (이전 스크립트용) Supabase URL과 anon key
 - `scripts/build-search.mjs`는 `.env.local`이 없으면 `process.env`에서 읽는다 (Vercel 빌드)
 - 빌드할 때 server가 떠 있어야 한다. API 호출이 실패하면 빈 목록으로 넘기지 않고 빌드가 실패한다
@@ -84,6 +85,7 @@ server 구현 기준:
 | `/` | `client/app/page.tsx` |
 | `/post/[slug]` | `client/app/post/[slug]/page.tsx` |
 | `/simple` | `client/app/simple/page.tsx` (Tiptap 에디터) |
+| `/write`, `/write/login` | `client/app/write/` (마크다운 글 작성, 이슈 #38) |
 | `/sitemap.xml`, `/robots.txt` | `client/app/sitemap.ts`, `client/app/robots.ts` |
 
 ### 렌더링 (`client/lib/markdown.ts`, `client/lib/post-meta.ts`)
@@ -103,6 +105,13 @@ server 구현 기준:
 - `client/styles/globals.css`: Tailwind v4 `@theme` 토큰 + base 스타일 + 폰트. 따뜻한 무채색 팔레트를 shadcn 토큰(`background`, `foreground`, `muted`, `muted-foreground`, `border`)에 연결하고, 강조색은 `brand`(라이트 `#d9480f`, 다크 `#ff8a5b`) 하나
 - `client/styles/article.css`: 포스트 본문(`.article`) 전용 스타일과 starry-night 문법 색 (포스트 페이지에서만 import)
 - 다크모드: `next-themes`(`Providers.tsx`)가 `html`에 `dark` 클래스를 붙이는 방식, 기본값은 시스템 설정. 헤더에 토글 있음
+
+### 글 작성 (`/write`, 이슈 #38)
+
+- `middleware.ts`가 세션 쿠키(`lib/write-auth.ts`, HMAC 서명)로 `/write`를 막고, 서버 액션(`app/write/actions.ts`)도 액션마다 세션을 다시 확인한다
+- 에디터는 CodeMirror 6(`components/write/MarkdownEditor.tsx`, `next/dynamic` ssr false). 미리보기(`LivePreview.tsx`)는 `createArticleProcessor()`(`lib/markdown.ts`)를 브라우저에서 돌려 입력할 때마다 바로 그린다. 글 페이지와 같은 파이프라인이다. starry-night WASM은 `app/write/onig.wasm/route.ts`가 내려준다 (기본값은 esm.sh)
+- `lib/markdown.ts`를 클라이언트에서 import하는 곳은 `/write`의 `LivePreview`뿐이다 (dynamic import라 공개 페이지 번들에는 안 들어간다)
+- 저장: 서버 액션 → `POST /api/posts` (`Authorization: Bearer ADMIN_API_TOKEN`), 성공하면 `revalidatePath`
 
 ### 외부 통합
 

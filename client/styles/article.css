@@ -5,7 +5,9 @@
  * 코드 블록 틀(.code-block, .code-head, .code-copy)은 lib/markdown.ts의 rehypeArticle이 만든다.
  */
 
-.article {
+/* 문법 색은 글 작성 에디터(.md-editor, components/write/MarkdownEditor)도 같이 쓴다 */
+.article,
+.md-editor {
   --code-bg: #f4f3f1;
   --sn-comment: #a8a29e;
   --sn-keyword: #c2410c;
@@ -15,7 +17,9 @@
   --sn-variable: #b45309;
   --sn-tag: #be123c;
   --sn-plain: #292524;
+}
 
+.article {
   font-size: 17px;
   line-height: 1.85;
   letter-spacing: -0.003em;
@@ -23,7 +27,8 @@
   overflow-wrap: anywhere;
 }
 
-.dark .article {
+.dark .article,
+.dark .md-editor {
   --code-bg: #161617;
   --sn-comment: #6b6b66;
   --sn-keyword: #ff8a5b;
