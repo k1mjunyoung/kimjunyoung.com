@@ -10,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
+    boolean existsBySlug(String slug);
+
     Optional<Post> findBySlugAndIsPublishedTrueAndDeletedAtIsNull(String slug);
 
     List<Post> findByIsPublishedTrueAndDeletedAtIsNullOrderByPublishedAtDescIdDesc();
