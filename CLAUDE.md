@@ -79,6 +79,7 @@ server 구현 기준:
 - 404 말고 다른 응답 오류는 에러를 던진다 (빌드 실패)
 - 날짜는 UTC ISO 문자열로 온다. 화면용 날짜는 `kstDate()`(`lib/post-meta.ts`)로 KST `YYYY-MM-DD`로 바꾼다
 - `generateStaticParams`로 포스트 페이지를 정적 생성
+- `/`, `/post/[slug]`, `/sitemap.xml`은 `revalidate = 600`(10분)이다. `/write` 저장은 `revalidatePath`로 바로 반영되지만, API를 직접 호출해 쓴 글은 그 신호가 없어서 최대 10분 뒤 반영된다. 검색 인덱스는 빌드 때만 만든다
 
 ### 라우팅
 
