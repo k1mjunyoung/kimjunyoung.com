@@ -3,6 +3,7 @@ package server;
 import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import server.dto.PostSummaryResponse;
 import server.exception.DuplicateSlugException;
 import server.exception.PostNotFoundException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -64,7 +66,9 @@ public class PostService {
         }
         try {
             // flush해서 동시 요청으로 unique 위반이 나면 여기서 409로 바꾼다
-            return PostResponse.from(postRepository.saveAndFlush(post));
+            Post saved = postRepository.saveAndFlush(post);
+            log.info("글 작성: id={}, slug={}, 공개={}", saved.getId(), saved.getSlug(), saved.isPublished());
+            return PostResponse.from(saved);
         } catch (DataIntegrityViolationException e) {
             throw new DuplicateSlugException(slug);
         }
