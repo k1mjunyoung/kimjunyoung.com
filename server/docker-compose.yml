@@ -1,0 +1,22 @@
+services:
+  app:
+    container_name: blog-server
+    build: .
+    env_file:
+      - .env
+    environment:
+      TZ: Asia/Seoul
+    networks:
+      - jigu-net
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 768M
+        reservations:
+          memory: 384M
+    restart: unless-stopped
+
+networks:
+  jigu-net:
+    external: true
