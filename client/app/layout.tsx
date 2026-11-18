@@ -45,6 +45,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Pretendard: 글자 범위별로 쪼갠 dynamic-subset. 쓰는 글자의 조각만 받는다 */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
+        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"

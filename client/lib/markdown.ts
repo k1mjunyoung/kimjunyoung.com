@@ -86,16 +86,26 @@ function rehypeArticle() {
   };
 }
 
-const processor = unified()
-  .use(remarkParse)
-  .use(remarkGfm)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeRaw)
-  .use(rehypeStarryNight)
-  .use(rehypeSlug)
-  .use(rehypeAutolinkHeadings, { behavior: "prepend" })
-  .use(rehypeArticle)
-  .use(rehypeStringify, { allowDangerousHtml: true });
+type StarryNightOptions = NonNullable<Parameters<typeof rehypeStarryNight>[0]>;
+
+/**
+ * 본문 렌더링 파이프라인. 글 페이지(서버)와 글 작성 미리보기(브라우저, components/write/LivePreview)가 같이 쓴다.
+ * 브라우저에서는 starry-night의 WASM 주소를 options.getOnigurumaUrlFetch로 넘긴다 (기본값은 esm.sh)
+ */
+export function createArticleProcessor(starryNight?: StarryNightOptions) {
+  return unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeStarryNight, starryNight)
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, { behavior: "prepend" })
+    .use(rehypeArticle)
+    .use(rehypeStringify, { allowDangerousHtml: true });
+}
+
+const processor = createArticleProcessor();
 
 /** 포스트 본문 HTML과 목차용 제목 목록 */
 export async function renderArticle(md: string): Promise<{ html: string; headings: Heading[] }> {

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAdjacentPosts, getAllPosts, getPostBySlug } from "@/lib/posts";
 import { renderArticle } from "@/lib/markdown";
-import { postHref, readMinutes, visibleTags } from "@/lib/post-meta";
+import { kstDate, postHref, readMinutes } from "@/lib/post-meta";
 import { buildMetadata, articleSchema } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import PostMeta from "@/components/PostMeta";
@@ -14,7 +14,7 @@ import { TocAside, TocInline } from "@/components/post/Toc";
 import ReadingChrome from "@/components/post/ReadingChrome";
 import CodeCopy from "@/components/post/CodeCopy";
 import ShareButtons from "@/components/post/ShareButtons";
-import type { Post } from "@/lib/posts";
+import type { PostListItem } from "@/lib/posts";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -51,9 +51,9 @@ export default async function PostPage({ params }: Props) {
   ]);
 
   const meta = {
-    date: post.date ? post.date.slice(0, 10) : "",
+    date: kstDate(post.publishedAt),
     readMin: readMinutes(post.content),
-    tags: visibleTags(post.categories),
+    tags: post.tags,
   };
   // 상세에서는 직접 쓴 설명만 리드 문단으로 쓴다 (자동 요약은 본문 첫 문장과 겹친다)
   const lead = post.description?.trim();
@@ -153,7 +153,15 @@ export default async function PostPage({ params }: Props) {
   );
 }
 
-function NavCard({ post, label, alignRight }: { post: Post; label: string; alignRight?: boolean }) {
+function NavCard({
+  post,
+  label,
+  alignRight,
+}: {
+  post: PostListItem;
+  label: string;
+  alignRight?: boolean;
+}) {
   return (
     <Link
       href={postHref(post.slug)}

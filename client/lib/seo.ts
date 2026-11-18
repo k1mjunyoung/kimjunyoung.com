@@ -8,7 +8,7 @@ const OG_IMAGE = process.env.NEXT_PUBLIC_OG_IMAGE!;
 
 export function buildMetadata(post: Post): Metadata {
   const canonical = `/post/${post.slug}`;
-  const image = post.thumbnail_url ?? OG_IMAGE;
+  const image = post.thumbnailUrl ?? OG_IMAGE;
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -24,7 +24,8 @@ export function buildMetadata(post: Post): Metadata {
       url: `${SITE_URL}${canonical}`,
       title: `${post.title} - ${SITE_TITLE}`,
       description: post.description || SEO_DESC,
-      publishedTime: post.date,
+      publishedTime: post.publishedAt,
+      ...(post.updatedAt && { modifiedTime: post.updatedAt }),
       images: [{ url: image.startsWith('http') ? image : `${SITE_URL}${image}` }],
     },
     twitter: {
@@ -41,7 +42,8 @@ export function articleSchema(post: Post) {
     '@type': 'Article',
     headline: post.title,
     description: post.description || SEO_DESC,
-    datePublished: post.date,
+    datePublished: post.publishedAt,
+    ...(post.updatedAt && { dateModified: post.updatedAt }),
     author: {
       '@type': 'Person',
       name: 'Kim Junyoung',
