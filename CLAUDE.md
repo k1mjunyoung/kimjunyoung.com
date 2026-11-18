@@ -33,7 +33,9 @@ ko/        # 예전 마크다운 포스트 원본 (현재 코드에서는 사용
 ### server
 
 - Spring Boot 4.0.9 + Java 17, Gradle
-- Spring Web MVC, Data JPA, Validation, PostgreSQL, Lombok
+- Spring Web MVC, Data JPA, Validation, PostgreSQL, Lombok, springdoc-openapi (API 문서)
+- API 문서: `/swagger-ui.html`(UI), `/v3/api-docs`(명세 JSON). 컨트롤러의 `@Operation` 등에서 만들어진다. 운영에서 끄려면 `API_DOCS_ENABLED=false`
+- 로그: SLF4J(`@Slf4j`). SQL 로그는 꺼 둠. 글 작성 INFO, 인증/검증 실패 WARN, 404 DEBUG. API 키 값은 로그에 남기지 않는다
 
 ## 명령어
 
