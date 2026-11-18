@@ -15,7 +15,3 @@ spring:
 app:
   # 쓰기 API(POST /api/posts) 인증 키. 비어 있으면 쓰기 API는 전부 401
   api-key: ${API_KEY:}
-
-logging:
-  level:
-    org.hibernate.SQL: debug
