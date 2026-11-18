@@ -20,6 +20,9 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// 이전/다음 글 링크에 API로 직접 쓴 새 글이 반영되도록 10분마다 다시 만든다 (값은 리터럴이어야 한다)
+export const revalidate = 600;
+
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((p) => ({ slug: p.slug }));

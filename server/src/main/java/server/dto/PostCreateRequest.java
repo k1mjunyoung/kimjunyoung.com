@@ -1,5 +1,6 @@
 package server.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,9 +19,8 @@ public record PostCreateRequest(
         List<String> tags,
         @NotBlank String content,
         @Pattern(regexp = "https?://.+", message = "썸네일은 http(s) URL이어야 합니다") String thumbnailUrl,
-        /** true면 지금 시각으로 발행, false나 null이면 비공개 저장 */
-        Boolean publish,
-        String apiKey) {
+        @Schema(description = "true면 지금 발행, false나 null이면 비공개 저장") Boolean publish,
+        @Schema(description = "헤더 대신 바디로 인증할 때만 쓴다", accessMode = Schema.AccessMode.WRITE_ONLY) String apiKey) {
 
     @Override
     public String toString() {

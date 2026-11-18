@@ -15,6 +15,9 @@ const profileLinks = [
   email && { label: "Email", href: `mailto:${email}`, icon: "bi-envelope", external: false },
 ].filter((l): l is { label: string; href: string; icon: string; external: boolean } => !!l);
 
+// API로 직접 쓴 글은 revalidatePath 신호가 없으므로, 10분마다 다시 만들어 새 글을 반영한다 (값은 리터럴이어야 한다)
+export const revalidate = 600;
+
 /**
  * 메인
  * - 최신 글 하나는 크게, 나머지는 연도별로 빠르게 훑는 목록
